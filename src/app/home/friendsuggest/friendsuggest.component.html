@@ -1,0 +1,20 @@
+<mat-card *ngFor ="let suggest of friendSuggests" fxLayout fxLayoutAlign="flex-end">
+    <div id="name">
+        <mat-card-header >
+    
+            <div class="avatar" mat-card-avatar></div>
+            <mat-card-title>          
+                {{suggest.senderName}}    
+               
+               </mat-card-title>              
+            <mat-card-subtitle>Happy
+              
+            </mat-card-subtitle>    
+           
+    </mat-card-header>
+    </div>
+    <div>
+        <button id="button" mat-button (click)="click(search._id, search.name, search.relationship)" #btn>Confirm</button>   
+    </div> 
+    
+</mat-card>

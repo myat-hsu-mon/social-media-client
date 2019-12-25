@@ -1,0 +1,31 @@
+.avatar{
+    background-image: url('../search/pug1.jpg');
+    background-size: cover;
+}
+button{
+    
+    background-color:lightgray;
+    height:40px;
+    width:140px;
+   
+}
+mat-card{
+    border-radius: 7px;
+    border-bottom: 1px solid blue;
+}
+
+span{
+    margin:40px;
+}
+div{
+    display: inline-block;
+}
+#button{
+    display: inline-block;
+    margin-left:15em;
+    margin-top: 0px;
+    
+}
+#name{
+    width:70px;
+}

@@ -1,0 +1,16 @@
+.avatar{
+    background-image: url('pug1.jpg');
+    background-size: cover;
+}
+button{
+    
+    background-color:lightgray;
+    height:40px;
+    width:140px;
+   
+}
+mat-card{
+    border-radius: 7px;
+    border-bottom: 1px solid blue;
+}
+

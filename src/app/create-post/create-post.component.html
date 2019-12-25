@@ -1,0 +1,7 @@
+<form action="">
+    <mat-form-field>
+        <mat-label>What is happening in the world?</mat-label>
+        <textarea #textareaValue  cols="30" matInput cdkTextareaAutosize cdkAutosizeMinRows="2" cdkAutosizeMaxRows="4"></textarea>
+    </mat-form-field>
+    <button mat-button [mat-dialog-close]="true" (click)="createPost(textareaValue.value)" >Post</button>
+</form>

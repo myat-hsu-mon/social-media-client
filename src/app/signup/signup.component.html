@@ -1,0 +1,19 @@
+<form action="" fxLayout="column" #form="ngForm" (ngSubmit)="signup(form)" >
+    <mat-form-field appearance="outline" color="green">
+        <mat-label>Name</mat-label>
+        <input matInput ngModel name="name" >
+        <mat-hint>Enter Your Name</mat-hint>
+        <mat-error>Require Name</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input type="email" matInput   ngModel name="email">
+        <mat-hint>Enter Your Email</mat-hint>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input type="password" matInput  ngModel name="password">
+        <mat-hint>Enter Your Password</mat-hint>
+    </mat-form-field>
+    <button type="submit" mat-button>SignUp</button>
+</form>

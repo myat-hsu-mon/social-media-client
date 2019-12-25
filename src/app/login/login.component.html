@@ -1,0 +1,11 @@
+<form action="" fxLayout="column" #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+    <mat-form-field appearance="outline">       
+        <input type="email" placeholder="email" matInput name="email" ngModel>
+        <mat-hint>Enter your email</mat-hint>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <input type="password" placeholder="password" matInput name="password" ngModel>
+        <mat-hint>Enter your password</mat-hint>
+    </mat-form-field>
+    <button mat-button type="submit">Login</button>
+</form>

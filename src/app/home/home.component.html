@@ -1,0 +1,80 @@
+<mat-toolbar fxLayoutGap="30px" color="primary">
+    <div fxFlex="1 2 calc(15em + 20px)">
+        <input [(ngModel)]="searchValue" type="text" matInput placeholder="Search">
+        <!-- <textarea #textareaValue  cols="30" matInput cdkTextareaAutosize cdkAutosizeMinRows="2" cdkAutosizeMaxRows="4" disabled></textarea> -->
+    </div>
+    <div>
+        <button mat-icon-button (click)="search()" routerLink="/home/search">
+            <mat-icon>search</mat-icon>
+        </button>
+    </div>
+    <div><button mat-button routerLink="/home/profile" (click)="profile(user._id)">Profile</button></div>
+    <div><button mat-button routerLink="/home/">Home</button></div>
+    <!-- <div ><button mat-button routerLink="/home/friendsuggest">Friend Suggests</button></div> -->
+
+    <div class="row">
+        <div class="col">
+            <div ngbDropdown class="d-inline-block">
+                <button class="btn btn-outline-primary" id="dropdownForm1" ngbDropdownToggle>Friend-Suggests</button>
+                <div ngbDropdownMenu aria-labelledby="dropdownForm1">
+                  
+                    
+                    <mat-card *ngFor="let friendSuggest of friendSuggests" fxLayout fxLayoutAlign="flex-end">
+                        <div id="name">
+                            <mat-card-header>
+
+                                <div class="avatar" mat-card-avatar></div>
+                                <mat-card-title>
+                                    {{friendSuggest.senderName}}
+
+                                </mat-card-title>
+                                <mat-card-subtitle>Happy
+
+                                </mat-card-subtitle>
+
+                            </mat-card-header>
+                        </div>
+                        <div>
+                            <button id="button" mat-button (click)="confirm(friendSuggest.senderId,friendSuggest.senderName)"
+                                #btn>{{confirmOrFriend}}</button>
+                        </div>
+
+
+                    </mat-card>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div><button mat-button>Logout</button></div>
+
+</mat-toolbar>
+<mat-sidenav-container>
+    <mat-sidenav opened mode="side" fxLayoutAlign="center" fxLayoutGap="10px">
+        <div class="profilepicture"></div>
+        <div><button class="sidenav" mat-button routerLink="/home/newfeed">Newfeed</button></div>
+        <div><button class="sidenav" mat-button routerLink="/home/message">Message</button></div>
+        <div><button class="sidenav" mat-button routerLink="/home/profile" (click)="profile(user._id)">Profile</button>
+        </div>
+        <div><button class="sidenav" mat-button (click)="createPost()">CreatePost</button></div>
+        <div><button mat-button>{{user.name}}</button></div>
+    </mat-sidenav>
+    <mat-sidenav class="sidenav-end" position="end" opened mode="side">End sidenav</mat-sidenav>
+    <mat-sidenav-content>
+
+        <form action="">
+            <mat-form-field>
+                <mat-label>What is happening in the world?</mat-label>
+                <textarea cols="30" matInput cdkTextareaAutosize cdkAutosizeMinRows="2"
+                    cdkAutosizeMaxRows="4"></textarea>
+            </mat-form-field>
+            <button mat-button>Post</button>
+        </form>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

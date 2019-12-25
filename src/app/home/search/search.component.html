@@ -1,0 +1,23 @@
+<mat-card *ngFor ="let search of searchResult" fxLayout fxLayoutAlign="flex-end">
+  <div id="name">
+      <mat-card-header >
+  
+          <div class="avatar" mat-card-avatar></div>
+          <mat-card-title>          
+              {{search.name}}      
+             
+             </mat-card-title>              
+          <mat-card-subtitle>Happy
+            
+          </mat-card-subtitle>    
+         
+  </mat-card-header>
+  </div>
+  <div>
+      <button id="button" mat-button (click)="click(search._id, search.name, search.relationship)" #btn>{{search.relationship}}</button>   
+  </div>
+
+  
+</mat-card>
+
+
