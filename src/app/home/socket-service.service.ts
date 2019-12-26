@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import * as io from 'socket.io-client'
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class SocketServiceService {
-socket = io('http://localhost:3000')
+socket = io('http://localhost:3000');
+socketId = new BehaviorSubject<String>("");
   constructor() { }
   addFriend(data){
     this.socket.emit('friend request',data);
@@ -29,8 +30,6 @@ socket = io('http://localhost:3000')
   createPost(data){
     this.socket.emit('create post',data);
   }
-
-
   friendSuggest(id){
     return new Observable((observer)=>{
       this.socket.on(id, (data)=>{

@@ -23,7 +23,7 @@ const routes: Routes = [
         loadChildren:'./new-feed/new-feed.module#NewFeedModule'
       },
       {
-        path: "profile",
+        path: "profile/:id",
         loadChildren:'./profile/profile.module#ProfileModule'
       },
       {
@@ -47,9 +47,8 @@ const routes: Routes = [
   declarations: [
     HomeComponent,
     CreatePostComponent,
-    
-   
   
+   
    
   ],
   imports: [
@@ -63,7 +62,6 @@ const routes: Routes = [
   exports: [RouterModule],
   entryComponents:[CreatePostComponent],
   providers:[SocketServiceService]
-
 
 })
 export class HomeModule { }

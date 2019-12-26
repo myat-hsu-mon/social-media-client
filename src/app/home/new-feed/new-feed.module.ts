@@ -17,12 +17,15 @@ import { NewfeedsComponent } from '../newfeeds/newfeeds.component';
   declarations: [
     NewFeedComponent,
     NewfeedsComponent
+
+    
   ],
   imports: [
     CommonModule,
     FormsModule,
     MaterialModule,
     RouterModule.forChild(routes),
+   
   ],
  // exports:[NewfeedsComponent]
 })
