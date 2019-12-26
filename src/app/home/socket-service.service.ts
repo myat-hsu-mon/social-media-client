@@ -5,12 +5,12 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class SocketServiceService {
-socketId
-socket = io('http://localhost:3000')
+    socketID
+    socket = io('http://localhost:3000')
   constructor() {
    this.socket.on('connect',()=>{
-      this.socketId.next(this.socket.id) ;
-      console.log('socket id from service:', this.socketId)
+     // this.socketId.next(this.socket.id) ;
+      console.log('socket id from service:', this.socketID)
     })
    }
   
@@ -37,8 +37,8 @@ socket = io('http://localhost:3000')
     this.socket.emit('create post',data);
   }
 
-
   friendSuggest(id){
+      console.log(id);
     return new Observable((observer)=>{
       this.socket.on(id, (data)=>{
         observer.next(data); 

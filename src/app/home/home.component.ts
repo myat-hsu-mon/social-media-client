@@ -7,6 +7,8 @@ import { SocketServiceService } from './socket-service.service';
 import { User } from '../models/user.model';
 import { Observable } from 'rxjs';
 import {NgbDropdownConfig} from '@ng-bootstrap/ng-bootstrap';
+import { isArray } from 'util';
+
 
 
 @Component({
@@ -16,8 +18,8 @@ import {NgbDropdownConfig} from '@ng-bootstrap/ng-bootstrap';
   providers:[NgbDropdownConfig]
 })
 export class HomeComponent implements OnInit {
+    
     socketId;
-    sID;
     searchValue : String;
     searchResult : any;
     data: any;
@@ -34,15 +36,11 @@ export class HomeComponent implements OnInit {
     private config:NgbDropdownConfig
     ) { 
       config.autoClose = false;
-      this.socketId = this._socketService.socketId;
-      console.log(`socket ID from home:${this.socketId}`)
+      
     }
 
   ngOnInit() {
-    this.socketId = this._socketService.socketId.subscribe((socket)=>{
-      this.sID = socket;
-    })
-    console.log('sID:', this.sID)
+    
     this._userService.userData.subscribe((userData:User) =>{
       this.user = userData;
       // this.friendSuggests=userData.friendSuggests;
@@ -51,23 +49,26 @@ export class HomeComponent implements OnInit {
   
     })
     this._socketService.friendSuggest(this.user._id).subscribe((receiver: User)=>{
-    console.log("search result",this.searchResult);
-      this.searchResult = this.searchResult.map(value =>{
+      console.log(isArray(this.searchResult))
+      if(this.searchResult.length){
+        this.searchResult = this.searchResult.map(value =>{
         
-        if(value._id == receiver._id)
-        {
-          value.relationship = 'Cancel Request'
-        }
-       
-        return value;
-      })
+          if(value._id == receiver._id)
+          {
+            value.relationship = 'Cancel Request'
+          }
+         
+          return value;
+        })
+      }
+      
      
     })
-    this._socketService.noti(this.user._id).subscribe((senderData:User)=>{
-      // this.friendSuggests.push(senderData);
-      console.log("senderdata is",senderData)
-      console.log(senderData.name,"sent you ",this.user.name,"a friend request");
-    })
+    // this._socketService.noti(this.user._id).subscribe((senderData:User)=>{
+    //   // this.friendSuggests.push(senderData);
+    //   console.log("senderdata is",senderData)
+    //   console.log(senderData.name,"sent you ",this.user.name,"a friend request");
+    // })
 
     
 
@@ -86,16 +87,21 @@ export class HomeComponent implements OnInit {
   
      // loop data
      
-      for(let i=0; i< this.data.length; i++){        
+      for(let i=0; i< this.data.length; i++){  
+        this.data[i].relationship = 'Add Friend';      
         for(let j=0;j<this.data[i].friendSuggests.length;j++){
           if(this.data[i].friendSuggests[j].senderId == this.user._id){
             this.data[i].relationship = 'Cancel Request';
             break;
-          }else{
-            this.data[i].relationship = 'Add Friend'
           }
-          
         }
+        for(let j=0;j<this.data[i].friendRequests.length;j++){
+          if(this.data[i].friendRequests[j].receiverId == this.user._id){
+            this.data[i].relationship = 'Confirm';
+            break;
+          }
+        }
+        
     
      }
      
