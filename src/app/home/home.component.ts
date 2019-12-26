@@ -61,10 +61,6 @@ export class HomeComponent implements OnInit {
       console.log(senderData.name, "sent you ", this.user.name, "a friend request");
     })
 
-
-
-
-
   }
   createPost() {
     this._dialog.open(CreatePostComponent);
@@ -90,9 +86,7 @@ export class HomeComponent implements OnInit {
         // console.log('search result from search function ', this.searchResult)
         this._userService.getSearchResult(this.searchResult);
       })
-  }
-
-  
+  }  
 
 
   confirm(id, name) {

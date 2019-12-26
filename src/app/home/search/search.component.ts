@@ -68,6 +68,7 @@ user:any;
     }
     this._socketService.cancelRequest(data)
   }
+  
   wall(searchUserData){
     this._userService.getUserData(searchUserData);
     this.router.navigate(['/home/profile',searchUserData._id]);
