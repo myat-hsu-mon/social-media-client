@@ -5,8 +5,15 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class SocketServiceService {
+socketId
 socket = io('http://localhost:3000')
-  constructor() { }
+  constructor() {
+   this.socket.on('connect',()=>{
+      this.socketId.next(this.socket.id) ;
+      console.log('socket id from service:', this.socketId)
+    })
+   }
+  
   addFriend(data){
     this.socket.emit('friend request',data);
   }

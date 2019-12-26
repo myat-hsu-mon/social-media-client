@@ -16,6 +16,8 @@ import {NgbDropdownConfig} from '@ng-bootstrap/ng-bootstrap';
   providers:[NgbDropdownConfig]
 })
 export class HomeComponent implements OnInit {
+    socketId;
+    sID;
     searchValue : String;
     searchResult : any;
     data: any;
@@ -32,10 +34,15 @@ export class HomeComponent implements OnInit {
     private config:NgbDropdownConfig
     ) { 
       config.autoClose = false;
+      this.socketId = this._socketService.socketId;
+      console.log(`socket ID from home:${this.socketId}`)
     }
 
   ngOnInit() {
-    
+    this.socketId = this._socketService.socketId.subscribe((socket)=>{
+      this.sID = socket;
+    })
+    console.log('sID:', this.sID)
     this._userService.userData.subscribe((userData:User) =>{
       this.user = userData;
       // this.friendSuggests=userData.friendSuggests;
@@ -71,6 +78,7 @@ export class HomeComponent implements OnInit {
     this._dialog.open(CreatePostComponent);
   }
   async search(){
+    console.log('socketid from home:', this.socketId)
    return (await this._httpService.search({searchValue: this.searchValue},'search'))
    .subscribe(data =>{
 
