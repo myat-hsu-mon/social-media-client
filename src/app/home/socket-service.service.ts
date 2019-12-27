@@ -1,17 +1,20 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import * as io from 'socket.io-client'
 import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class SocketServiceService {
+export class SocketServiceService implements OnInit{
     socketID
     socket = io('http://localhost:3000')
   constructor() {
-   this.socket.on('connect',()=>{
-     // this.socketId.next(this.socket.id) ;
-      console.log('socket id from service:', this.socketID)
-    })
+    this.socket.on('connect',()=>{
+      this.socketID = this.socket.id;
+       console.log('socket id from service:', this.socketID)
+     })
+   }
+   ngOnInit(){
+    
    }
   
   addFriend(data){
@@ -38,9 +41,9 @@ export class SocketServiceService {
   }
 
   friendRequest(id){
-      console.log(id);
+      console.log("sender id for cancel request",id);
     return new Observable((observer)=>{
-      this.socket.on(id, (data)=>{
+      this.socket.on(`${id}friendRequest`, (data)=>{
         observer.next(data); 
       })
       
@@ -48,8 +51,9 @@ export class SocketServiceService {
     
   }
   noti(id){
+    console.log("sender id for noti", id)
     return new Observable((observer)=>{
-      this.socket.on(id, (data)=>{
+      this.socket.on(`${id}noti`, (data)=>{
         observer.next(data); 
       })
       

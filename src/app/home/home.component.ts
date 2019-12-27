@@ -36,11 +36,12 @@ export class HomeComponent implements OnInit {
     private config:NgbDropdownConfig
     ) { 
       config.autoClose = false;
+      this.socketId = this._socketService.socketID;
       
     }
 
   ngOnInit() {
-    
+    console.log('socket id from home:', this.socketId)
     this._userService.userData.subscribe((userData:User) =>{
       this.user = userData;
       // this.friendSuggests=userData.friendSuggests;
@@ -49,7 +50,7 @@ export class HomeComponent implements OnInit {
   
     })
     this._socketService.friendRequest(this.user._id).subscribe((receiver: User)=>{
-      if(this.searchResult.length){
+      
         this.searchResult = this.searchResult.map(value =>{
         
           if(value._id == receiver._id)
@@ -58,7 +59,7 @@ export class HomeComponent implements OnInit {
           }
           return value;
         })
-      }
+      
       
      
     })
