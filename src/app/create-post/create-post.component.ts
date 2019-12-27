@@ -37,9 +37,9 @@ export class CreatePostComponent implements OnInit {
       id:this.user._id
     };
     this._socketService.createPost(data);
-    // this._socketService.createPostEmit(data.id).subscribe((postedValue)=>{
-    //   this.
-    // })
+    this._socketService.createPostEmit(data.id).subscribe((userWithNewData)=>{
+      this._userService.getUserData(userWithNewData);
+    })
   }
 
 }

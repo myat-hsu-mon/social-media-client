@@ -38,7 +38,12 @@ export class SocketServiceService {
     this.socket.emit('create post',data);
   }
   createPostEmit(id){
-    
+    return new Observable((observer)=>{
+      this.socket.on(id, (data)=>{
+        observer.next(data); 
+      })
+      
+    })
   }
 
   friendRequest(id){

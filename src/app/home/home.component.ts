@@ -24,7 +24,8 @@ export class HomeComponent implements OnInit {
     data: any;
     user;
     friendSuggests=[];
-    confirmOrFriend = 'cconfirm';
+    confirmOrFriend = 'Confirm';
+    visible =true;
 
 
   constructor(
@@ -44,8 +45,6 @@ export class HomeComponent implements OnInit {
     console.log('socket id from home:', this.socketId)
     this._userService.userData.subscribe((userData:User) =>{
       this.user = userData;
-      // this.friendSuggests=userData.friendSuggests;
-      // console.log("Friend suggests is ", this.friendSuggests);  
        
     })
     this._socketService.friendRequest(this.user._id).subscribe((receiver: User)=>{
@@ -68,6 +67,10 @@ export class HomeComponent implements OnInit {
       console.log(senderData.name,"sent you ",this.user.name,"a friend request");
     })
 
+
+  }
+  removeNotification(){
+    this.visible = false;
 
   }
   createPost() {
@@ -119,6 +122,9 @@ export class HomeComponent implements OnInit {
 
   }
   profile(){
+    this._userService.userData.subscribe((user:User)=>{
+      this.user = user;
+    })
     this._userService.getSearchProfile(this.user);
     this.router.navigate( ['/home/profile',this.user._id]);
   }
