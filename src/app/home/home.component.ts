@@ -8,6 +8,8 @@ import { User } from '../models/user.model';
 import { Observable } from 'rxjs';
 import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
+import { FriendSuggest } from '../models/friendSuggest.model';
+
 
 
 @Component({
@@ -17,12 +19,11 @@ import { Router } from '@angular/router';
   providers: [NgbDropdownConfig]
 })
 export class HomeComponent implements OnInit {
-    
+    user;
     socketId;
     searchValue : String;
     searchResult : any = [];
     data: any;
-    user;
     friendSuggests=[];
     confirmOrFriend = 'Confirm';
     visible =true;
@@ -47,6 +48,7 @@ export class HomeComponent implements OnInit {
       this.user = userData;
        
     })
+
     this._socketService.friendRequest(this.user._id).subscribe((receiver: User)=>{
       
         this.searchResult = this.searchResult.map(value =>{
@@ -57,14 +59,11 @@ export class HomeComponent implements OnInit {
           }
           return value;
         })
-      
-      
-     
     })
-    this._socketService.noti(this.user._id).subscribe((senderData:User)=>{
-      // this.friendSuggests.push(senderData);
-      console.log("senderdata is",senderData)
-      console.log(senderData.name,"sent you ",this.user.name,"a friend request");
+
+    this._socketService.friendSuggestNoti(this.user._id).subscribe((notiData: FriendSuggest)=>{
+      this.user.numberOfFriendSuggests = notiData.numberOfFriendSuggests;
+      this.user.friendSuggestsForNoti = notiData.friendSuggestsForNoti;   
     })
 
 
@@ -73,7 +72,8 @@ export class HomeComponent implements OnInit {
     this.visible = false;
 
   }
-  createPost() {
+ // end of Oninit
+  createPost(){
     this._dialog.open(CreatePostComponent);
   }
   async search(){
