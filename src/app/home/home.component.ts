@@ -43,8 +43,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     console.log('socket id from home:', this.socketId)
     this._userService.userData.subscribe((userData:User) =>{
-      this.user = userData;
-       
+      this.user = userData;       
     })
 
     this._socketService.friendRequest(this.user._id).subscribe((receiver: User)=>{
@@ -82,7 +81,7 @@ export class HomeComponent implements OnInit {
       } else if(value.friendSuggests.includes(this.user._id)){
         value.relationship = 'Cancel Request';
       }else if(value.friendRequests.includes(this.user._id)){
-        value.relationship = 'Accept Request';
+        value.relationship = 'Confirm';
       }else{
         value.relationship = 'Add Friend'; 
       }

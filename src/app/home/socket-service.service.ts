@@ -53,7 +53,7 @@ export class SocketServiceService implements OnInit{
   friendSuggestNoti(id){
     console.log("sender id for noti", id)
     return new Observable((observer)=>{
-      this.socket.on(`${id}noti`, (data)=>{
+      this.socket.on(`${id}friendSuggestNoti`, (data)=>{
         observer.next(data); 
       })
       
