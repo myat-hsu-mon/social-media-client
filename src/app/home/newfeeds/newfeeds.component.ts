@@ -21,8 +21,7 @@ export class NewfeedsComponent implements OnInit {
 
   ngOnInit() {
     this._userService.userData.subscribe(userData =>{
-      this.user = userData;
-     
+      this.user = userData;     
     });
 
     // this._userService.postedData.subscribe(postedData =>{

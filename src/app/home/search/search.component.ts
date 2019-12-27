@@ -4,6 +4,7 @@ import { SocketServiceService } from '../socket-service.service';
 import { User } from 'src/app/models/user.model';
 import { HttpServiceService } from 'src/app/http-service.service';
 import {NgbDropdownConfig} from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search',
@@ -18,7 +19,8 @@ user:any;
     private _userService:UserServiceService,
     private _socketService: SocketServiceService,
     private _httpService: HttpServiceService,
-    private config: NgbDropdownConfig
+    private config: NgbDropdownConfig,
+    private router:Router
     ) {
       // config.placement = 'top-left';
       config.autoClose = false;
@@ -54,8 +56,6 @@ user:any;
       receiverId:id,
       receiverName:name
     }
-    console.log('sender and receiver:', data)
-    //console.log(`${this.user.name} send a friend request to ${name} with id ${id}`);
     this._socketService.addFriend(data) 
   }
   cancelRequest(id, name){
@@ -66,6 +66,14 @@ user:any;
       receiverName:name
     }
     this._socketService.cancelRequest(data)
+  }
+  
+  wall(searchUserData){
+    this._userService.getSearchProfile(searchUserData);
+    console.log("Search User Data :",searchUserData);
+    this.router.navigate(['/home/profile',searchUserData._id]);
+    
+
   }
 
 

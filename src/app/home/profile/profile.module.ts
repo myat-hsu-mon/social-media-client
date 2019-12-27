@@ -4,8 +4,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { ProfileComponent } from './profile.component';
 import { FormsModule } from '@angular/forms';
 import { MaterialModule } from 'src/app/material/material.module';
+import { WallComponent } from '../wall/wall.component';
 //import { NewFeedModule } from '../new-feed/new-feed.module';
-import { NewfeedsComponent } from '../newfeeds/newfeeds.component';
 const routes:Routes =[
   {
     path:"",
@@ -18,14 +18,15 @@ const routes:Routes =[
 @NgModule({
   declarations: [
     ProfileComponent,
-    NewfeedsComponent
+    WallComponent
+  
   ],
   imports: [
     CommonModule,
     FormsModule,
     MaterialModule,
     RouterModule.forChild(routes),
-   // NewFeedModule,
+
   ],
   exports:[RouterModule]
 })

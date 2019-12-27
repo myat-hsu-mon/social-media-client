@@ -9,20 +9,34 @@ import { User } from 'src/app/models/user.model';
 })
 export class ProfileComponent implements OnInit {
   user:Object;
-  posts=[];
+  posts;
   name:String;
 
   constructor(private _userService:UserServiceService) { }
 
   ngOnInit() {
-    this._userService.searchProfileData.subscribe((data: User)=>{  
-      if(!data.posts){
-        this.posts.push(data.posts);
-        this.name = data.name;
-    }else{
-      console.log("data is ,",data);
-    }
-      })
+    // this._userService.searchProfileData.subscribe((data: User)=>{  
+    //   if(!data.posts){
+    //     this.posts.push(data.posts);
+    //     console.log("search wall is", this.posts);
+    //     this.name = data.name;
+    //     console.log("Search name is ,", this.name);
+    // }else{
+    //   console.log("data is ,",data);
+    // }
+    //   })
+    
+    // this._userService.userData.subscribe((user:User)=>{
+    //   this.name = user.name;
+    //   this.posts = user.posts;
+    //   console.log("Current User",this.name,this.posts);
+    // })
+   this._userService.searchProfileData.subscribe((searchUser:User)=>{
+     this.name = searchUser.name;
+     this.posts = searchUser.posts;
+     console.log("Search User,", this.name,this.posts);
+   })
+
   }
 
 }
