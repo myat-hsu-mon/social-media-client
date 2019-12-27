@@ -7,7 +7,8 @@ import { SocketServiceService } from './socket-service.service';
 import { User } from '../models/user.model';
 import { Observable } from 'rxjs';
 import {NgbDropdownConfig} from '@ng-bootstrap/ng-bootstrap';
-import { isArray } from 'util';
+
+import { FriendSuggest } from '../models/friendSuggest.model';
 
 
 
@@ -18,12 +19,11 @@ import { isArray } from 'util';
   providers:[NgbDropdownConfig]
 })
 export class HomeComponent implements OnInit {
-    
+    user;
     socketId;
     searchValue : String;
     searchResult : any = [];
     data: any;
-    user;
     friendSuggests=[];
     confirmOrFriend = 'cconfirm';
 
@@ -44,11 +44,9 @@ export class HomeComponent implements OnInit {
     console.log('socket id from home:', this.socketId)
     this._userService.userData.subscribe((userData:User) =>{
       this.user = userData;
-      // this.friendSuggests=userData.friendSuggests;
-      // console.log("Friend suggests is ", this.friendSuggests);     
-     
-  
+       
     })
+
     this._socketService.friendRequest(this.user._id).subscribe((receiver: User)=>{
       
         this.searchResult = this.searchResult.map(value =>{
@@ -59,21 +57,16 @@ export class HomeComponent implements OnInit {
           }
           return value;
         })
-      
-      
-     
     })
-    this._socketService.noti(this.user._id).subscribe((senderData:User)=>{
-      // this.friendSuggests.push(senderData);
-      console.log("senderdata is",senderData)
-      console.log(senderData.name,"sent you ",this.user.name,"a friend request");
+
+    this._socketService.friendSuggestNoti(this.user._id).subscribe((notiData: FriendSuggest)=>{
+      this.user.numberOfFriendSuggests = notiData.numberOfFriendSuggests;
+      this.user.friendSuggestsForNoti = notiData.friendSuggestsForNoti;   
     })
 
     
 
-   
-
-  }
+  } // end of Oninit
   createPost(){
     this._dialog.open(CreatePostComponent);
   }
