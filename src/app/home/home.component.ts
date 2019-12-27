@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
     
     socketId;
     searchValue : String;
-    searchResult : any;
+    searchResult : any = [];
     data: any;
     user;
     friendSuggests=[];
@@ -48,8 +48,7 @@ export class HomeComponent implements OnInit {
      
   
     })
-    this._socketService.friendSuggest(this.user._id).subscribe((receiver: User)=>{
-      console.log(isArray(this.searchResult))
+    this._socketService.friendRequest(this.user._id).subscribe((receiver: User)=>{
       if(this.searchResult.length){
         this.searchResult = this.searchResult.map(value =>{
         
@@ -57,18 +56,17 @@ export class HomeComponent implements OnInit {
           {
             value.relationship = 'Cancel Request'
           }
-         
           return value;
         })
       }
       
      
     })
-    // this._socketService.noti(this.user._id).subscribe((senderData:User)=>{
-    //   // this.friendSuggests.push(senderData);
-    //   console.log("senderdata is",senderData)
-    //   console.log(senderData.name,"sent you ",this.user.name,"a friend request");
-    // })
+    this._socketService.noti(this.user._id).subscribe((senderData:User)=>{
+      // this.friendSuggests.push(senderData);
+      console.log("senderdata is",senderData)
+      console.log(senderData.name,"sent you ",this.user.name,"a friend request");
+    })
 
     
 
@@ -79,37 +77,24 @@ export class HomeComponent implements OnInit {
     this._dialog.open(CreatePostComponent);
   }
   async search(){
-    console.log('socketid from home:', this.socketId)
+    
    return (await this._httpService.search({searchValue: this.searchValue},'search'))
    .subscribe(data =>{
-
-      this.data = data
-  
-     // loop data
-     
-      for(let i=0; i< this.data.length; i++){  
-        this.data[i].relationship = 'Add Friend';      
-        for(let j=0;j<this.data[i].friendSuggests.length;j++){
-          if(this.data[i].friendSuggests[j].senderId == this.user._id){
-            this.data[i].relationship = 'Cancel Request';
-            break;
-          }
-        }
-        for(let j=0;j<this.data[i].friendRequests.length;j++){
-          if(this.data[i].friendRequests[j].receiverId == this.user._id){
-            this.data[i].relationship = 'Confirm';
-            break;
-          }
-        }
-        
-    
-     }
-     
-    
-      // end of loop 
-      this.searchResult =this.data;
+      this.searchResult = data;
+     console.log('search result:', this.searchResult)
+    this.searchResult = this.searchResult.map(value =>{
+      if(value.friends.includes(this.user._id)){
+        value.relationship = 'Friends';
+      } else if(value.friendSuggests.includes(this.user._id)){
+        value.relationship = 'Cancel Request';
+      }else if(value.friendRequests.includes(this.user._id)){
+        value.relationship = 'Accept Request';
+      }else{
+        value.relationship = 'Add Friend'; 
+      }
+      return value;
+     })
       
-      console.log('search result ', this.searchResult)
       this._userService.getSearchResult(this.searchResult);
       })
    }
