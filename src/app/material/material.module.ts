@@ -10,9 +10,7 @@ const material =[
   MatIconModule,
   MatDialogModule,
   MatDividerModule,
-  MatChipsModule,
-  
-  
+  MatChipsModule,  
 
 ];
 

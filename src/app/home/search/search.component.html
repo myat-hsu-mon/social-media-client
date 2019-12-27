@@ -4,8 +4,10 @@
   
           <div class="avatar" mat-card-avatar></div>
           <mat-card-title>          
-            <a (click)="wall(search)"> {{search.name}}</a>  
-             
+            <!-- <a   (click)="wall(search)"> {{search.name}}</a>   -->
+            <a routerLink="" (click)="wall(search)">{{search.name}}</a>
+            <!-- <button (click)="wall(search)" mat-flat-button>{{search.name}}</button> -->
+             <!-- <mat-chip-list (click)="wall(search)">{{search.name}}</mat-chip-list> -->
              </mat-card-title>              
           <mat-card-subtitle>Happy
             

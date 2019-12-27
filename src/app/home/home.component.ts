@@ -7,6 +7,7 @@ import { SocketServiceService } from './socket-service.service';
 import { User } from '../models/user.model';
 import { Observable } from 'rxjs';
 import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -16,12 +17,14 @@ import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
   providers: [NgbDropdownConfig]
 })
 export class HomeComponent implements OnInit {
-  searchValue: String;
-  searchResult: any;
-  data: any;
-  user;
-  friendSuggests = [];
-  confirmOrFriend = 'confirm';
+    
+    socketId;
+    searchValue : String;
+    searchResult : any = [];
+    data: any;
+    user;
+    friendSuggests=[];
+    confirmOrFriend = 'cconfirm';
 
 
   constructor(
@@ -29,7 +32,8 @@ export class HomeComponent implements OnInit {
     private _httpService: HttpServiceService,
     private _userService: UserServiceService,
     private _socketService: SocketServiceService,
-    private config: NgbDropdownConfig
+    private config: NgbDropdownConfig,
+    private router:Router
   ) {
     config.autoClose = false;
   }
@@ -39,52 +43,53 @@ export class HomeComponent implements OnInit {
     this._userService.userData.subscribe((userData: User) => {
       this.user = userData;
       // this.friendSuggests=userData.friendSuggests;
-      // console.log("Friend suggests is ", this.friendSuggests);     
-
-
+      // console.log("Friend suggests is ", this.friendSuggests);  
+       
     })
-    this._socketService.friendSuggest(this.user._id).subscribe((receiver: User) => {
-      console.log("search result", this.searchResult);
-      this.searchResult = this.searchResult.map(value => {
-
-        if (value._id == receiver._id) {
-          value.relationship = 'Cancel Request'
-        }
-
-        return value;
-      })
-
+    this._socketService.friendRequest(this.user._id).subscribe((receiver: User)=>{
+      if(this.searchResult.length){
+        this.searchResult = this.searchResult.map(value =>{
+        
+          if(value._id == receiver._id)
+          {
+            value.relationship = 'Cancel Request'
+          }
+          return value;
+        })
+      }      
+     
     })
-    this._socketService.noti(this.user._id).subscribe((senderData: User) => {
+    this._socketService.noti(this.user._id).subscribe((senderData:User)=>{
       // this.friendSuggests.push(senderData);
-      console.log("senderdata is", senderData)
-      console.log(senderData.name, "sent you ", this.user.name, "a friend request");
+      console.log("senderdata is",senderData)
+      console.log(senderData.name,"sent you ",this.user.name,"a friend request");
     })
+
 
   }
   createPost() {
     this._dialog.open(CreatePostComponent);
   }
-  async search() {
-    return (await this._httpService.search({ searchValue: this.searchValue }, 'search'))
-      .subscribe(data => {
-        this.data = data
-        // loop data
-
-        for (let i = 0; i < this.data.length; i++) {
-          for (let j = 0; j < this.data[i].friendSuggests.length; j++) {
-            if (this.data[i].friendSuggests[j].senderId == this.user._id) {
-              this.data[i].relationship = 'Cancel Request';
-              break;
-            } else {
-              this.data[i].relationship = 'Add Friend'
-            }
-          }
-        }
-        // end of loop 
-        this.searchResult = this.data;
-        // console.log('search result from search function ', this.searchResult)
-        this._userService.getSearchResult(this.searchResult);
+  async search(){
+    
+   return (await this._httpService.search({searchValue: this.searchValue},'search'))
+   .subscribe(data =>{
+      this.searchResult = data;
+     console.log('search result:', this.searchResult)
+    this.searchResult = this.searchResult.map(value =>{
+      if(value.friends.includes(this.user._id)){
+        value.relationship = 'Friends';
+      } else if(value.friendSuggests.includes(this.user._id)){
+        value.relationship = 'Cancel Request';
+      }else if(value.friendRequests.includes(this.user._id)){
+        value.relationship = 'Accept Request';
+      }else{
+        value.relationship = 'Add Friend'; 
+      }
+      return value;
+     })
+      
+      this._userService.getSearchResult(this.searchResult);
       })
   }  
 
@@ -109,6 +114,10 @@ export class HomeComponent implements OnInit {
       })
     })
 
+  }
+  profile(){
+    this._userService.getSearchProfile(this.user);
+    this.router.navigate( ['/home/profile',this.user._id]);
   }
 
 

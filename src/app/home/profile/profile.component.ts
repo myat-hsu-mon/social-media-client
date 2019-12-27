@@ -25,11 +25,17 @@ export class ProfileComponent implements OnInit {
     //   console.log("data is ,",data);
     // }
     //   })
-    this._userService.userData.subscribe((user:User)=>{
-      this.name = user.name;
-      this.posts = user.posts;
-      console.log("name and posts",this.name,this.posts);
-    })
+    
+    // this._userService.userData.subscribe((user:User)=>{
+    //   this.name = user.name;
+    //   this.posts = user.posts;
+    //   console.log("Current User",this.name,this.posts);
+    // })
+   this._userService.searchProfileData.subscribe((searchUser:User)=>{
+     this.name = searchUser.name;
+     this.posts = searchUser.posts;
+     console.log("Search User,", this.name,this.posts);
+   })
 
   }
 
