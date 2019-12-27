@@ -6,4 +6,6 @@ export interface User{
     _id:string;
     userData:Object;
     friendSuggests:any;
+    numberOfFriendSuggests:number;
+    friendSuggestsForNoti:any;
 }

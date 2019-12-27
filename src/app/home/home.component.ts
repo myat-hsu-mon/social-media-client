@@ -26,7 +26,6 @@ export class HomeComponent implements OnInit {
     data: any;
     friendSuggests=[];
     confirmOrFriend = 'Confirm';
-    visible =true;
 
 
   constructor(
@@ -45,8 +44,7 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     console.log('socket id from home:', this.socketId)
     this._userService.userData.subscribe((userData:User) =>{
-      this.user = userData;
-       
+      this.user = userData;       
     })
 
     this._socketService.friendRequest(this.user._id).subscribe((receiver: User)=>{
@@ -61,21 +59,46 @@ export class HomeComponent implements OnInit {
         })
     })
 
-    this._socketService.friendSuggestNoti(this.user._id).subscribe((notiData: FriendSuggest)=>{
-      this.user.numberOfFriendSuggests = notiData.numberOfFriendSuggests;
-      this.user.friendSuggestsForNoti = notiData.friendSuggestsForNoti;   
+    this._socketService.canceledRequest(this.user._id).subscribe((receiver: User)=>{
+      this.searchResult = this.searchResult.map(value =>{ 
+        if(value._id == receiver._id)
+        {
+          value.relationship = 'Add Friend'
+        }
+        return value;
+      })
     })
 
+    this._socketService.friendSuggestNoti(this.user._id).subscribe((notiData: FriendSuggest)=>{
+      console.log("NotiData is ", notiData);
+      this.user.numberOfFriendSuggests = notiData.numberOfFriendSuggests;
+      this.user.friendSuggestsForNoti = notiData.friendSuggestsForNoti; 
+    })
 
-  }
-  removeNotification(){
-    this.visible = false;
+    this._socketService.removedFriendSuggestsNoti(this.user._id).subscribe((notiData: FriendSuggest)=>{
+      this.user.numberOfFriendSuggests = notiData.numberOfFriendSuggests;
+    })
 
+    // this._socketService.confirmEmit(this.user._id).subscribe((receiver: User) => {
+    //   this.friendSuggests = this.user.friendSuggests.map(value => {
+       
+    //     if (value == receiver._id) {
+    //       this.confirmOrFriend = "Friend";
+    //     }
+    //   })
+    // })
+
+   
+
+  } // end on Oninit
+  removeFriendSuggestsNoti(){
+    this._socketService.removeFriendSuggestsNoti(this.user._id);
   }
- // end of Oninit
+ 
   createPost(){
     this._dialog.open(CreatePostComponent);
   }
+
   async search(){
     
    return (await this._httpService.search({searchValue: this.searchValue},'search'))
@@ -100,27 +123,17 @@ export class HomeComponent implements OnInit {
   }  
 
 
-  confirm(id, name) {
-    const data = {
-      senderId: this.user._id,
-      senderName: this.user.name,
-      receiverId: id,
-      receiverName: name
-    }
+  // confirm(id, name) {
+  //   const data = {
+  //     senderId: this.user._id,
+  //     senderName: this.user.name,
+  //     receiverId: id,
+  //     receiverName: name
+  //   }
 
-    this._socketService.confirm(data);//confirm data via socket server
-    //socket emit
-    this._socketService.confirmEmit(this.user._id).subscribe((receiver: User) => {
-      this.friendSuggests = this.user.friendSuggests.map(value => {
-        if (value.senderId == receiver._id) {
-          this.confirmOrFriend = "Friend";
-
-        }
-        return value;
-      })
-    })
-
-  }
+  //   this._socketService.confirm(data);//confirm data via socket server
+  //   //socket emit 
+  // }
   profile(){
     this._userService.userData.subscribe((user:User)=>{
       this.user = user;

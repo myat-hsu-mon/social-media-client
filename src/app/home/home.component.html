@@ -15,33 +15,31 @@
     <div class="row">
         <div class="col">
             <div ngbDropdown class="d-inline-block">
-                <button mat-icon-button class="btn btn-outline-primary" id="dropdownForm1" ngbDropdownToggle  (click)="removeNotification()"><mat-icon [matBadgeHidden]="!visible"  [matBadge]="user.numberOfFriendSuggests" matBadgeColor="accent">group</mat-icon></button>
-                <div ngbDropdownMenu aria-labelledby="dropdownForm1">                 
-                    
-                    <mat-card *ngFor="let friendSuggest of user.friendSuggests" fxLayout fxLayoutAlign="flex-end">
+                <button mat-icon-button class="btn btn-outline-primary" id="dropdownForm1" ngbDropdownToggle
+                    (click)="removeFriendSuggestsNoti()">
+                    <mat-icon [matBadgeHidden]="!user.numberOfFriendSuggests > 0"
+                        [matBadge]="user.numberOfFriendSuggests" matBadgeColor="accent">group</mat-icon>
+                </button>
+                <div ngbDropdownMenu aria-labelledby="dropdownForm1" *ngIf="user.friendSuggestsForNoti.length">
+
+                    <mat-card *ngFor="let friendSuggest of user.friendSuggestsForNoti" fxLayout
+                        fxLayoutAlign="flex-end">
                         <div id="name">
                             <mat-card-header>
                                 <div class="avatar" mat-card-avatar></div>
                                 <mat-card-title>
                                     {{friendSuggest.senderName}}
-
                                 </mat-card-title>
                                 <mat-card-subtitle>Happy
-
                                 </mat-card-subtitle>
-
                             </mat-card-header>
                         </div>
                         <div>
-                            <button id="button" mat-button (click)="confirm(friendSuggest.senderId,friendSuggest.senderName)"
+                            <button id="button" mat-button
+                                (click)="confirm(friendSuggest.senderId,friendSuggest.senderName)"
                                 #btn>{{confirmOrFriend}}</button>
                         </div>
-
-                        
                     </mat-card>
-
-
-
                 </div>
             </div>
         </div>
