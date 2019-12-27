@@ -32,22 +32,24 @@ export class HomeComponent implements OnInit {
     private _httpService: HttpServiceService,
     private _userService: UserServiceService,
     private _socketService: SocketServiceService,
-    private config: NgbDropdownConfig,
+    private config:NgbDropdownConfig,
     private router:Router
-  ) {
-    config.autoClose = false;
-  }
+    ) { 
+      config.autoClose = false;
+      this.socketId = this._socketService.socketID;
+      
+    }
 
   ngOnInit() {
-
-    this._userService.userData.subscribe((userData: User) => {
+    console.log('socket id from home:', this.socketId)
+    this._userService.userData.subscribe((userData:User) =>{
       this.user = userData;
       // this.friendSuggests=userData.friendSuggests;
       // console.log("Friend suggests is ", this.friendSuggests);  
        
     })
     this._socketService.friendRequest(this.user._id).subscribe((receiver: User)=>{
-      if(this.searchResult.length){
+      
         this.searchResult = this.searchResult.map(value =>{
         
           if(value._id == receiver._id)
@@ -56,7 +58,8 @@ export class HomeComponent implements OnInit {
           }
           return value;
         })
-      }      
+      
+      
      
     })
     this._socketService.noti(this.user._id).subscribe((senderData:User)=>{

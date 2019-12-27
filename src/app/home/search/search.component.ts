@@ -56,6 +56,7 @@ user:any;
       receiverId:id,
       receiverName:name
     }
+    console.log('sender and receiver:', data)
     //console.log(`${this.user.name} send a friend request to ${name} with id ${id}`);
     this._socketService.addFriend(data) 
   }
