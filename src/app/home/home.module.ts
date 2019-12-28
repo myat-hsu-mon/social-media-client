@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { CreatePostComponent } from '../create-post/create-post.component';
 import { SocketServiceService } from './socket-service.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MessageBottomsheetComponent } from './message-bottomsheet/message-bottomsheet.component';
 
 
 const routes: Routes = [
@@ -47,6 +48,7 @@ const routes: Routes = [
   declarations: [
     HomeComponent,
     CreatePostComponent,
+    MessageBottomsheetComponent,
   
    
    
@@ -60,7 +62,10 @@ const routes: Routes = [
     
   ],
   exports: [RouterModule],
-  entryComponents:[CreatePostComponent],
+  entryComponents:[
+    CreatePostComponent,
+    MessageBottomsheetComponent
+  ],
   providers:[SocketServiceService]
 
 })

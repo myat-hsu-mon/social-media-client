@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatBottomSheet, MatBottomSheetConfig } from '@angular/material';
 import { CreatePostComponent } from '../create-post/create-post.component';
 import { HttpServiceService } from '../http-service.service';
 import { UserServiceService } from '../services/user-service.service';
@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { FriendSuggest } from '../models/friendSuggest.model';
+import { MessageBottomsheetComponent } from './message-bottomsheet/message-bottomsheet.component';
 
 
 
@@ -25,7 +26,8 @@ export class HomeComponent implements OnInit {
     searchResult : any = [];
     data: any;
     friendSuggests=[];
-    confirmOrFriend = 'Confirm';
+    confirmOrFriend = 'Accept Request';
+    friendsWithIdAndName =[];
 
 
   constructor(
@@ -34,7 +36,8 @@ export class HomeComponent implements OnInit {
     private _userService: UserServiceService,
     private _socketService: SocketServiceService,
     private config:NgbDropdownConfig,
-    private router:Router
+    private router:Router,
+    private _bottomSheet: MatBottomSheet
     ) { 
       config.autoClose = false;
       this.socketId = this._socketService.socketID;
@@ -79,14 +82,15 @@ export class HomeComponent implements OnInit {
       this.user.numberOfFriendSuggests = notiData.numberOfFriendSuggests;
     })
 
-    // this._socketService.confirmEmit(this.user._id).subscribe((receiver: User) => {
-    //   this.friendSuggests = this.user.friendSuggests.map(value => {
-       
-    //     if (value == receiver._id) {
-    //       this.confirmOrFriend = "Friend";
-    //     }
-    //   })
-    // })
+    this._socketService.acceptedRequest(this.user._id).subscribe((sender: User) => {
+      this.user.friendSuggestsForNoti = sender.friendSuggestsForNoti;
+    })
+    
+    // const data = {
+    //   id:this.user._id,
+    //   friends:this.user.friends
+    // }
+    // this._socketService.getFriendsLists(data);
 
    
 
@@ -123,17 +127,17 @@ export class HomeComponent implements OnInit {
   }  
 
 
-  // confirm(id, name) {
-  //   const data = {
-  //     senderId: this.user._id,
-  //     senderName: this.user.name,
-  //     receiverId: id,
-  //     receiverName: name
-  //   }
+  acceptRequest(id, name) {
+    const data = {
+      senderId: this.user._id,
+      senderName: this.user.name,
+      receiverId: id,
+      receiverName: name
+    }    
 
-  //   this._socketService.confirm(data);//confirm data via socket server
-  //   //socket emit 
-  // }
+    this._socketService.acceptRequest(data);//confirm data via socket server
+    //socket emit 
+  }
   profile(){
     this._userService.userData.subscribe((user:User)=>{
       this.user = user;
@@ -142,6 +146,17 @@ export class HomeComponent implements OnInit {
     this.router.navigate( ['/home/profile',this.user._id]);
   }
 
+  openMessage(friend){
+    this._userService.getFriend(friend);
+     this._bottomSheet.open(MessageBottomsheetComponent,{
+       panelClass:'resize',
+       disableClose:true,
+       hasBackdrop:false,
+     });  
+  }
+  closeMessage(){
+    this._bottomSheet.dismiss();
+  }
 
 }
 

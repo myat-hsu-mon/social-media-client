@@ -31,29 +31,31 @@ export class SocketServiceService {
     })
   }
 
-  // confirm(data){
-  //   this.socket.emit('confirm', data);
-  // }
-  // confirmEmit(id){
-  //   return new Observable((observer)=>{
-  //     this.socket.on(id, (data)=>{
-  //       observer.next(data); 
-  //     })
+  acceptRequest(data){
+    this.socket.emit('acceptRequest', data);
+  }
+
+  acceptedRequest(id){
+    return new Observable((observer)=>{
+      this.socket.on(`${id}acceptedRequest`, (data)=>{
+        observer.next(data); 
+      })
       
-  //   })
+    })
     
-  // }
-  // createPost(data){
-  //   this.socket.emit('create post',data);
-  // }
-  // createPostEmit(id){
-  //   return new Observable((observer)=>{
-  //     this.socket.on(id, (data)=>{
-  //       observer.next(data); 
-  //     })
+  }
+
+  createPost(data){
+    this.socket.emit('create post',data);
+  }
+  createPostEmit(id){
+    return new Observable((observer)=>{
+      this.socket.on(id, (data)=>{
+        observer.next(data); 
+      })
       
-  //   })
-  // }
+    })
+  }
 
   friendRequest(id){
       console.log(id);
@@ -84,5 +86,9 @@ export class SocketServiceService {
       })
     })
   }
+
+  // getFriendsLists(friends){
+  //   this.socket.emit('friends',friends);
+  // }
 
 }
