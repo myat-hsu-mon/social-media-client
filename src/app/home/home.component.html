@@ -44,7 +44,8 @@
             </div>
         </div>
     </div>
-    <div><button mat-button>Logout</button></div>
+    <div><button mat-button routerLink="/">Logout</button></div>
+    <div>  <button mat-button (click)="closeMessage()">CloseDialog</button></div>
 
 </mat-toolbar>
 <mat-sidenav-container>
@@ -59,9 +60,10 @@
     </mat-sidenav>
     <mat-sidenav class="sidenav-end" position="end" opened mode="side">Friends 
         <mat-nav-list>
-            <a mat-list-item *ngFor="let friend of user.friends" (click)="openMessage(friend)"> {{ friend }} </a>
+            <a mat-list-item *ngFor="let friend of user.friends" (click)="openMessage(friend)"> <h1>{{ friend.name}}</h1>{{friend._id}} </a>
          </mat-nav-list>
-         <button mat-button (click)="closeMessage()">CloseDialog</button>
+         <input placeholder = "send a message"  [(ngModel)]="text" >
+         <button mat-button (click)="sendMessage()">Send</button>
     </mat-sidenav>
     <mat-sidenav-content>
 

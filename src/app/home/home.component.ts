@@ -28,6 +28,7 @@ export class HomeComponent implements OnInit {
     friendSuggests=[];
     confirmOrFriend = 'Accept Request';
     friendsWithIdAndName =[];
+    text: String ;
 
 
   constructor(
@@ -72,7 +73,7 @@ export class HomeComponent implements OnInit {
     })
 
     this._socketService.friendSuggestNoti(this.user._id).subscribe((notiData: FriendSuggest)=>{
-      console.log("NotiData is ", notiData);
+     
       this.user.numberOfFriendSuggests = notiData.numberOfFriendSuggests;
       this.user.friendSuggestsForNoti = notiData.friendSuggestsForNoti; 
     })
@@ -85,17 +86,29 @@ export class HomeComponent implements OnInit {
       this.user.friendSuggestsForNoti = sender.friendSuggestsForNoti;
     })
 
-    this._socketService.receivedMessage(this.user._id).subscribe((message: User) => {
+    this._socketService.receivedMessage(this.user._id).subscribe((message) => {
+      console.log('I received a message from other:')
       console.log(message)
     })
-    
-    // const data = {
-    //   id:this.user._id,
-    //   friends:this.user.friends
-    // }
-    // this._socketService.getFriendsLists(data);
 
-   
+    this._socketService.getMyMessage(this.user._id).subscribe((message)=>{
+      console.log('I received my message:', message)
+    })
+    
+    const data = {
+      id:this.user._id,
+      friends:this.user.friends
+    }
+    this._socketService.getFriendsLists(data);
+
+    this._socketService.friendsWithIdAndName(this.user._id).subscribe((friends: User) => {
+      console.log("friends are ",friends)
+       this.user.friends = friends;
+    })
+    this._socketService.createPostEmit(this.user._id).subscribe((userWithNewData)=>{
+      this._userService.getUserData(userWithNewData);
+    })
+
 
   } // end on Oninit
   removeFriendSuggestsNoti(){
@@ -154,14 +167,29 @@ export class HomeComponent implements OnInit {
   openMessage(friend){
     this._userService.getFriend(friend);
      this._bottomSheet.open(MessageBottomsheetComponent,{
+       data:{
+         receiverId:friend._id,
+         receiverName:friend.name,
+         senderId:this.user._id,
+        },
        panelClass:'resize',
        disableClose:true,
        hasBackdrop:false,
      });  
   }
+
   closeMessage(){
     this._bottomSheet.dismiss();
   }
 
+  sendMessage(){   
+    const message = {
+      // from: this.data.senderId,
+      // to: this.data.receiverId,
+      body:this.text
+    }
+    this._socketService.sendMessage(message);
+    this.text = "";
+  }
 }
 

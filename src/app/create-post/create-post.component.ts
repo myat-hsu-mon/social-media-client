@@ -18,7 +18,6 @@ export class CreatePostComponent implements OnInit {
     private _service:HttpServiceService,
     private _userService:UserServiceService,
     private _socketService:SocketServiceService,
-    private _matbottomSheetRef:MatBottomSheetRef
 ) { }
 
   ngOnInit() {
@@ -40,9 +39,7 @@ export class CreatePostComponent implements OnInit {
       id:this.user._id
     };
     this._socketService.createPost(data);
-    this._socketService.createPostEmit(data.id).subscribe((userWithNewData)=>{
-      this._userService.getUserData(userWithNewData);
-    })
+   
   }
 
 }

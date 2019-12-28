@@ -90,39 +90,37 @@ export class SocketServiceService {
     this.socket.emit('joinOneToOneChannel', user)
   }
 
+  getFriendsLists(friends){
+    this.socket.emit('getFriendsLists',friends);
+  }
 
-  receivedMessage(id){
+  friendsWithIdAndName(id){
     return new Observable((observer)=>{
-      this.socket.on(`${id}receivedMessage`, (data)=>{
+      this.socket.on(`${id}friendsWithIdAndName`, (data)=>{
         observer.next(data); 
       })
     })
   }
 
+  sendMessage(message){
+    
+    this.socket.emit('sendMessage',message);
+  }
+  
+  getMyMessage(id){
+    return new Observable((observer )=>{
+      this.socket.on(`getMyMessage`, (message)=>{
+        observer.next(message);
+      })
+    })
+  } 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  receivedMessage(id){
+    return new Observable((observer )=>{
+      this.socket.on(`${id}receivedMessage`, (message)=>{
+        observer.next(message);
+      })
+    })
+  }
 
 }// end of class
