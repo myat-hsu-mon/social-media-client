@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit {
     searchResult : any = [];
     data: any;
     friendSuggests=[];
-    confirmOrFriend = 'Confirm';
+    confirmOrFriend = 'Accept Request';
 
 
   constructor(
@@ -42,7 +42,6 @@ export class HomeComponent implements OnInit {
     }
 
   ngOnInit() {
-    console.log('socket id from home:', this.socketId)
     this._userService.userData.subscribe((userData:User) =>{
       this.user = userData;       
     })
@@ -106,12 +105,14 @@ export class HomeComponent implements OnInit {
       this.searchResult = data;
      console.log('search result:', this.searchResult)
     this.searchResult = this.searchResult.map(value =>{
-      if(value.friends.includes(this.user._id)){
+      if(value._id == this.user._id){
+        value.relationship = '';
+      }else if(value.friends.includes(this.user._id)){
         value.relationship = 'Friends';
       } else if(value.friendSuggests.includes(this.user._id)){
         value.relationship = 'Cancel Request';
       }else if(value.friendRequests.includes(this.user._id)){
-        value.relationship = 'Confirm';
+        value.relationship = 'Accept Request';
       }else{
         value.relationship = 'Add Friend'; 
       }

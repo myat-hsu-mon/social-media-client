@@ -10,7 +10,7 @@ export class SocketServiceService {
     socket = io('http://localhost:3000')
   constructor() {
    this.socket.on('connect',()=>{
-     // this.socketId.next(this.socket.id) ;
+     this.socketID = this.socket.id;
       console.log('socket id from service:', this.socketID)
     })
    }
@@ -31,29 +31,29 @@ export class SocketServiceService {
     })
   }
 
-  // confirm(data){
-  //   this.socket.emit('confirm', data);
-  // }
-  // confirmEmit(id){
-  //   return new Observable((observer)=>{
-  //     this.socket.on(id, (data)=>{
-  //       observer.next(data); 
-  //     })
+  confirm(data){
+    this.socket.emit('confirm', data);
+  }
+  confirmEmit(id){
+    return new Observable((observer)=>{
+      this.socket.on(id, (data)=>{
+        observer.next(data); 
+      })
       
-  //   })
+    })
     
-  // }
-  // createPost(data){
-  //   this.socket.emit('create post',data);
-  // }
-  // createPostEmit(id){
-  //   return new Observable((observer)=>{
-  //     this.socket.on(id, (data)=>{
-  //       observer.next(data); 
-  //     })
+  }
+  createPost(data){
+    this.socket.emit('create post',data);
+  }
+  createPostEmit(id){
+    return new Observable((observer)=>{
+      this.socket.on(id, (data)=>{
+        observer.next(data); 
+      })
       
-  //   })
-  // }
+    })
+  }
 
   friendRequest(id){
       console.log(id);
@@ -85,4 +85,35 @@ export class SocketServiceService {
     })
   }
 
-}
+  joinOneToOneChannel(user){
+    this.socket.emit('joinOneToOneChannel', user)
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}// end of class
