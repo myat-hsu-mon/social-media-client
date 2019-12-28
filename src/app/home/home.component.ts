@@ -73,7 +73,7 @@ export class HomeComponent implements OnInit {
     })
 
     this._socketService.friendSuggestNoti(this.user._id).subscribe((notiData: FriendSuggest)=>{
-      console.log("NotiData is ", notiData);
+     
       this.user.numberOfFriendSuggests = notiData.numberOfFriendSuggests;
       this.user.friendSuggestsForNoti = notiData.friendSuggestsForNoti; 
     })
@@ -86,11 +86,19 @@ export class HomeComponent implements OnInit {
       this.user.friendSuggestsForNoti = sender.friendSuggestsForNoti;
     })
     
-    // const data = {
-    //   id:this.user._id,
-    //   friends:this.user.friends
-    // }
-    // this._socketService.getFriendsLists(data);
+    const data = {
+      id:this.user._id,
+      friends:this.user.friends
+    }
+    this._socketService.getFriendsLists(data);
+
+    this._socketService.friendsWithIdAndName(this.user._id).subscribe((friends: User) => {
+      console.log("friends are ",friends)
+       this.user.friends = friends;
+    })
+    this._socketService.createPostEmit(this.user._id).subscribe((userWithNewData)=>{
+      this._userService.getUserData(userWithNewData);
+    })
 
    
 
@@ -149,6 +157,11 @@ export class HomeComponent implements OnInit {
   openMessage(friend){
     this._userService.getFriend(friend);
      this._bottomSheet.open(MessageBottomsheetComponent,{
+       data:{
+         receiverId:friend._id,
+         receiverName:friend.name,
+         senderId:this.user._id,
+        },
        panelClass:'resize',
        disableClose:true,
        hasBackdrop:false,

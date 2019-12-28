@@ -87,8 +87,21 @@ export class SocketServiceService {
     })
   }
 
-  // getFriendsLists(friends){
-  //   this.socket.emit('friends',friends);
-  // }
+  getFriendsLists(friends){
+    this.socket.emit('friends',friends);
+  }
+
+  friendsWithIdAndName(id){
+    return new Observable((observer)=>{
+      this.socket.on(`${id}friendsWithIdAndName`, (data)=>{
+        observer.next(data); 
+      })
+    })
+  }
+
+  sendMessage(message){
+    this.socket.emit('sendMessage',message);
+  }
+ 
 
 }

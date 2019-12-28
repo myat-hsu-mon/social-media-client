@@ -21,9 +21,9 @@ export class LoginComponent implements OnInit {
   (await  this._httpService.login(loginData.value,'login'))
   .subscribe(data =>{
     this._userService.getUserData(data);   
-    
+  
   });   
-   this.router.navigate(['/home']);
+  this.router.navigate(['/home']);
   }
 
 }

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { MatBottomSheetRef } from '@angular/material';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material';
 import { UserServiceService } from 'src/app/services/user-service.service';
-import { EventEmitter } from 'protractor';
+import { SocketServiceService } from '../socket-service.service';
+
 
 @Component({
   selector: 'app-message-bottomsheet',
@@ -9,18 +10,26 @@ import { EventEmitter } from 'protractor';
   styleUrls: ['./message-bottomsheet.component.css']
 })
 export class MessageBottomsheetComponent implements OnInit {
-friendData ;
+  text:String;
   constructor(
     private _matBottomSheetRef:MatBottomSheetRef,
-    private _userService:UserServiceService
+    private _userService:UserServiceService,
+    private _socketService:SocketServiceService,
+    @Inject(MAT_BOTTOM_SHEET_DATA)public data:any
     ) { }
 
   ngOnInit() {
-   this._userService.friendData.subscribe(friendData =>{
-     this.friendData = friendData;
-   })
+  
   }
-
+  sendMessage(){   
+    const message = {
+      from: this.data.senderId,
+      to: this.data.receiverId,
+      body:this.text
+    }
+    this._socketService.sendMessage(message);
+    this.text = "";
+  }
 
 
 }

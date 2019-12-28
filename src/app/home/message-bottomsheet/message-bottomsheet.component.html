@@ -1,3 +1,10 @@
-<p>message-bottomsheet works!</p>
-{{friendData}}
-<button mat-button (click)="closeMessageDialog()">cancel</button>
+
+    <h1>
+        {{data.receiverName}}
+    </h1>
+   
+        <input placeholder = "send a message"  [(ngModel)]="text" >
+        <button mat-button (click)="sendMessage()">Send</button>
+ 
+
+
