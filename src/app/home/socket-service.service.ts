@@ -31,12 +31,13 @@ export class SocketServiceService {
     })
   }
 
-  confirm(data){
-    this.socket.emit('confirm', data);
+  acceptRequest(data){
+    this.socket.emit('acceptRequest', data);
   }
-  confirmEmit(id){
+
+  acceptedRequest(id){
     return new Observable((observer)=>{
-      this.socket.on(id, (data)=>{
+      this.socket.on(`${id}acceptedRequest`, (data)=>{
         observer.next(data); 
       })
       
@@ -89,6 +90,14 @@ export class SocketServiceService {
     this.socket.emit('joinOneToOneChannel', user)
   }
 
+
+  receivedMessage(id){
+    return new Observable((observer)=>{
+      this.socket.on(`${id}receivedMessage`, (data)=>{
+        observer.next(data); 
+      })
+    })
+  }
 
 
 

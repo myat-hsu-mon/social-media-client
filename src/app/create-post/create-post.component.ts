@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpServiceService } from '../http-service.service';
 import { UserServiceService } from '../services/user-service.service';
 import { SocketServiceService } from '../home/socket-service.service';
+import { MatBottomSheetRef } from '@angular/material';
 
 
 @Component({
@@ -16,7 +17,9 @@ export class CreatePostComponent implements OnInit {
   constructor(
     private _service:HttpServiceService,
     private _userService:UserServiceService,
-    private _socketService:SocketServiceService) { }
+    private _socketService:SocketServiceService,
+    private _matbottomSheetRef:MatBottomSheetRef
+) { }
 
   ngOnInit() {
     this._userService.userData.subscribe(userData =>{
