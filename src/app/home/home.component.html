@@ -40,14 +40,14 @@
 
 
     <div ngbDropdown class="d-inline-block" [autoClose]="true"   id="message-div">
-        <button mat-icon-button class="btn btn-outline-primary" id="dropdownForm1" ngbDropdownToggle (click)="getMessageLists()">
+        <button mat-icon-button class="btn btn-outline-primary" id="dropdownForm1" ngbDropdownToggle (click)="getMessageList()">
             <mat-icon [matBadgeHidden]="true" [matBadge]="4"
                 matBadgeColor="accent">message</mat-icon>
         </button>
         <div ngbDropdownMenu aria-labelledby="dropdownForm1" >
             <mat-nav-list>
-                <a mat-list-item *ngFor="let message of messageList" (click)="getMessageLists()">
-                    {{message.conversationId}}
+                <a mat-list-item *ngFor="let message of messageList" (click)="getMessageList()">
+                    {{message.name}}
                 </a>
             </mat-nav-list>
         </div>

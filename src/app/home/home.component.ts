@@ -116,6 +116,7 @@ export class HomeComponent implements OnInit {
 
     this._socketService.gotMessageList(this.user._id).subscribe((messageList)=>{
         this.messageList = messageList;
+        console.log("Message list :",this.messageList);
     })
 
     
