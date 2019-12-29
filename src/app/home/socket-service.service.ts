@@ -118,4 +118,16 @@ export class SocketServiceService {
     })
   }
 
+  getMessageList(id){
+    this.socket.emit('getMessageList', id)
+  }
+
+  gotMessageList(id){
+    return new Observable((observer )=>{
+      this.socket.on(`gotMessageList`, (messageList)=>{
+        observer.next(messageList);
+      })
+    })
+  }
+
 }// end of class
