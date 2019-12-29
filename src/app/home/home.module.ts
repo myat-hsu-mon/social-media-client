@@ -50,6 +50,8 @@ const routes: Routes = [
     HomeComponent,
     CreatePostComponent,
     MessageBottomsheetComponent,
+   
+    
   
    
    
@@ -59,7 +61,7 @@ const routes: Routes = [
     MaterialModule,
     FormsModule,
     RouterModule.forChild(routes),
-    NgbModule
+    NgbModule,
     
   ],
   exports: [RouterModule],

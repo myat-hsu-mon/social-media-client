@@ -3,49 +3,55 @@
         <input [(ngModel)]="searchValue" type="text" matInput placeholder="Search">
         <!-- <textarea #textareaValue  cols="30" matInput cdkTextareaAutosize cdkAutosizeMinRows="2" cdkAutosizeMaxRows="4" disabled></textarea> -->
     </div>
-    <div>
+    <div fxFlex>
         <button mat-icon-button (click)="search()" routerLink="/home/search">
             <mat-icon>search</mat-icon>
         </button>
     </div>
-    <div><button mat-button routerLink="/home/profile" (click)="profile(user._id)">Profile</button></div>
-    <div><button mat-button routerLink="/home/">Home</button></div>
-    <!-- <div ><button mat-button routerLink="/home/friendsuggest">Friend Suggests</button></div> -->
+    <div fxFlex><button mat-button routerLink="/home/profile" (click)="profile(user._id)">Profile</button></div>
+    <div fxFlex><button mat-button routerLink="/home/">Home</button></div>
+    <div ngbDropdown class="d-inline-block" [autoClose]="true" fxFlex id="friend-suggest-div">
+        <button mat-icon-button class="btn btn-outline-primary" id="dropdownForm1" ngbDropdownToggle
+            (click)="removeFriendSuggestsNoti()">
+            <mat-icon [matBadgeHidden]="!user.numberOfFriendSuggests > 0" [matBadge]="user.numberOfFriendSuggests"
+                matBadgeColor="accent">group</mat-icon>
+        </button>
+        <div ngbDropdownMenu aria-labelledby="dropdownForm1" *ngIf="user.friendSuggestsForNoti.length">
 
-    <div class="row">
-        <div class="col">
-            <div ngbDropdown class="d-inline-block">
-                <button mat-icon-button class="btn btn-outline-primary" id="dropdownForm1" ngbDropdownToggle
-                    (click)="removeFriendSuggestsNoti()">
-                    <mat-icon [matBadgeHidden]="!user.numberOfFriendSuggests > 0"
-                        [matBadge]="user.numberOfFriendSuggests" matBadgeColor="accent">group</mat-icon>
-                </button>
-                <div ngbDropdownMenu aria-labelledby="dropdownForm1" *ngIf="user.friendSuggestsForNoti.length">
-
-                    <mat-card *ngFor="let friendSuggest of user.friendSuggestsForNoti" fxLayout
-                        fxLayoutAlign="flex-end">
-                        <div id="name">
-                            <mat-card-header>
-                                <div class="avatar" mat-card-avatar></div>
-                                <mat-card-title>
-                                    {{friendSuggest.senderName}}
-                                </mat-card-title>
-                                <mat-card-subtitle>Sent you a friend request!!
-                                </mat-card-subtitle>
-                            </mat-card-header>
-                        </div>
-                        <div>
-                            <button id="button" mat-button
-                                (click)="acceptRequest(friendSuggest.senderId,friendSuggest.senderName)"
-                                #btn>{{confirmOrFriend}}</button>
-                        </div>
-                    </mat-card>
+            <mat-card *ngFor="let friendSuggest of user.friendSuggestsForNoti" fxLayout fxLayoutAlign="flex-end">
+                <div id="name">
+                    <mat-card-header>
+                        <div class="avatar" mat-card-avatar></div>
+                        <mat-card-title>
+                            {{friendSuggest.senderName}}
+                        </mat-card-title>
+                        <mat-card-subtitle>Sent you a friend request!!
+                        </mat-card-subtitle>
+                    </mat-card-header>
                 </div>
-            </div>
+                <div>
+                    <button id="button" mat-button
+                        (click)="acceptRequest(friendSuggest.senderId,friendSuggest.senderName)"
+                        #btn>{{confirmOrFriend}}</button>
+                </div>
+            </mat-card>
         </div>
     </div>
-    <div><button mat-button routerLink="/">Logout</button></div>
-    <div> <button mat-button (click)="closeMessage()">CloseDialog</button></div>
+
+
+    <div ngbDropdown class="d-inline-block" [autoClose]="true" fxFlex  id="message-div">
+        <button mat-icon-button class="btn btn-outline-primary" id="dropdownForm1" ngbDropdownToggle
+            (click)="removeFriendSuggestsNoti()">
+            <mat-icon [matBadgeHidden]="!user.numberOfFriendSuggests > 0" [matBadge]="user.numberOfFriendSuggests"
+                matBadgeColor="accent">message</mat-icon>
+        </button>
+        <div ngbDropdownMenu aria-labelledby="dropdownForm1" *ngIf="user.friendSuggestsForNoti.length">
+        </div>
+    </div>
+
+
+
+    <div fxFlex> <button mat-button (click)="closeMessage()">CloseDialog</button></div>
 
 </mat-toolbar>
 <mat-sidenav-container>
