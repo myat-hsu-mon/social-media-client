@@ -11,6 +11,8 @@ import { SocketServiceService } from '../socket-service.service';
 })
 export class MessageBottomsheetComponent implements OnInit {
   text:String;
+  messages =[];
+
   constructor(
     private _matBottomSheetRef:MatBottomSheetRef,
     private _userService:UserServiceService,
@@ -28,6 +30,7 @@ export class MessageBottomsheetComponent implements OnInit {
       body:this.text
     }
     this._socketService.sendMessage(message);
+    this.messages.push(this.text);
     this.text = "";
   }
 

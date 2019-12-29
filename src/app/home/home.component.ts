@@ -100,9 +100,14 @@ export class HomeComponent implements OnInit {
       this._userService.getUserData(userWithNewData);
     })
 
+    this._socketService.receivedMessage(this.user._id).subscribe((message)=>{
+      console.log("Message from home:",message);
+    })
+
    
 
   } // end on Oninit
+
   removeFriendSuggestsNoti(){
     this._socketService.removeFriendSuggestsNoti(this.user._id);
   }
@@ -111,8 +116,7 @@ export class HomeComponent implements OnInit {
     this._dialog.open(CreatePostComponent);
   }
 
-  async search(){
-    
+  async search(){    
    return (await this._httpService.search({searchValue: this.searchValue},'search'))
    .subscribe(data =>{
       this.searchResult = data;

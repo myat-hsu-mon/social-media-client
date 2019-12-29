@@ -6,102 +6,111 @@ import { Observable, BehaviorSubject } from 'rxjs';
 })
 export class SocketServiceService {
 
-    socketID
-    socket = io('http://localhost:3000')
+  socketID
+  socket = io('http://localhost:3000')
   constructor() {
-   this.socket.on('connect',()=>{
-     // this.socketId.next(this.socket.id) ;
+    this.socket.on('connect', () => {
+      // this.socketId.next(this.socket.id) ;
       console.log('socket id from service:', this.socketID)
     })
-   }
-
-  addFriend(data){
-    this.socket.emit('addFriend',data);
   }
 
-  cancelRequest(data){
+  addFriend(data) {
+    this.socket.emit('addFriend', data);
+  }
+
+  cancelRequest(data) {
     this.socket.emit('cancelRequest', data);
   }
 
-  canceledRequest(id){
-    return new Observable((observer)=>{
-      this.socket.on(`${id}canceledRequest`, (data)=>{
-        observer.next(data); 
+  canceledRequest(id) {
+    return new Observable((observer) => {
+      this.socket.on(`${id}canceledRequest`, (data) => {
+        observer.next(data);
       })
     })
   }
 
-  acceptRequest(data){
+  acceptRequest(data) {
     this.socket.emit('acceptRequest', data);
   }
 
-  acceptedRequest(id){
-    return new Observable((observer)=>{
-      this.socket.on(`${id}acceptedRequest`, (data)=>{
-        observer.next(data); 
+  acceptedRequest(id) {
+    return new Observable((observer) => {
+      this.socket.on(`${id}acceptedRequest`, (data) => {
+        observer.next(data);
       })
-      
+
     })
-    
+
   }
 
-  createPost(data){
-    this.socket.emit('create post',data);
+  createPost(data) {
+    this.socket.emit('create post', data);
   }
-  createPostEmit(id){
-    return new Observable((observer)=>{
-      this.socket.on(id, (data)=>{
-        observer.next(data); 
+  createPostEmit(id) {
+    return new Observable((observer) => {
+      this.socket.on(id, (data) => {
+        observer.next(data);
       })
-      
+
     })
   }
 
-  friendRequest(id){
-      console.log(id);
-    return new Observable((observer)=>{
-      this.socket.on(`${id}friendRequest`, (data)=>{
-        observer.next(data); 
-      })   
-    }) 
+  friendRequest(id) {
+    console.log(id);
+    return new Observable((observer) => {
+      this.socket.on(`${id}friendRequest`, (data) => {
+        observer.next(data);
+      })
+    })
   }
-  
-  friendSuggestNoti(id){
+
+  friendSuggestNoti(id) {
     console.log("sender id for noti", id)
-    return new Observable((observer)=>{
-      this.socket.on(`${id}friendSuggestNoti`, (data)=>{
-        observer.next(data); 
+    return new Observable((observer) => {
+      this.socket.on(`${id}friendSuggestNoti`, (data) => {
+        observer.next(data);
       })
     })
   }
 
-  removeFriendSuggestsNoti(id){
-    this.socket.emit('removeFriendSuggestsNoti',id);
+  removeFriendSuggestsNoti(id) {
+    this.socket.emit('removeFriendSuggestsNoti', id);
   }
 
-  removedFriendSuggestsNoti(id){
-    return new Observable((observer)=>{
-      this.socket.on(`${id}removedFriendSuggestsNoti`, (data)=>{
-        observer.next(data); 
+  removedFriendSuggestsNoti(id) {
+    return new Observable((observer) => {
+      this.socket.on(`${id}removedFriendSuggestsNoti`, (data) => {
+        observer.next(data);
       })
     })
   }
 
-  getFriendsLists(friends){
-    this.socket.emit('friends',friends);
+  getFriendsLists(friends) {
+    this.socket.emit('friends', friends);
   }
 
-  friendsWithIdAndName(id){
-    return new Observable((observer)=>{
-      this.socket.on(`${id}friendsWithIdAndName`, (data)=>{
-        observer.next(data); 
+  friendsWithIdAndName(id) {
+    return new Observable((observer) => {
+      this.socket.on(`${id}friendsWithIdAndName`, (data) => {
+        observer.next(data);
       })
     })
   }
 
-  sendMessage(message){
-    this.socket.emit('sendMessage',message);
+  sendMessage(message) {
+    this.socket.emit('sendMessage', message);
   }
- 
+
+  receivedMessage(id) {
+    return new Observable((observer) => {
+      this.socket.on(`receivedMessage`, (data) => {
+        observer.next(data);
+      })
+    })
+  }
+
+
 
 }

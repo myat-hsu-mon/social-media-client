@@ -5,33 +5,33 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class UserServiceService {
-  postedDataArray=[];
-  friendRequestArray=[];
- searchResult = new BehaviorSubject<[]>([]);
- userData = new BehaviorSubject<{}>({});
- postedData = new BehaviorSubject<any>({} as String);
- friendRequestData = new BehaviorSubject<any>({} as String);
- searchProfileData = new BehaviorSubject<{}>({});
- friendData = new BehaviorSubject<{}>({});
+  postedDataArray = [];
+  friendRequestArray = [];
+  searchResult = new BehaviorSubject<[]>([]);
+  userData = new BehaviorSubject<{}>({});
+  postedData = new BehaviorSubject<any>({} as String);
+  friendRequestData = new BehaviorSubject<any>({} as String);
+  searchProfileData = new BehaviorSubject<{}>({});
+  friendData = new BehaviorSubject<{}>({});
   constructor() { }
-  getSearchResult(search){
+  getSearchResult(search) {
     this.searchResult.next(search);
   }
-  getUserData(user){
+  getUserData(user) {
     this.userData.next(user);
   }
-  getPostedData(data){
+  getPostedData(data) {
     this.postedDataArray.push(data)
     this.postedData.next(this.postedDataArray);
   }
-  postFriendrequest(friendRequestName){
-    this.friendRequestArray.push(friendRequestName);    
+  postFriendrequest(friendRequestName) {
+    this.friendRequestArray.push(friendRequestName);
     this.friendRequestData.next(this.friendRequestArray);
   }
-  getSearchProfile(searchProfileData){
+  getSearchProfile(searchProfileData) {
     this.searchProfileData.next(searchProfileData);
   }
-  getFriend(friend){
+  getFriend(friend) {
     this.friendData.next(friend);
   }
 
