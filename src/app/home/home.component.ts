@@ -100,11 +100,11 @@ export class HomeComponent implements OnInit {
       this._messageService.getMessage(message);        
     })
     
-    const data = {
-      id:this.user._id,
-      friends:this.user.friends
-    }
-    this._socketService.getFriendsLists(data);
+    // const data = {
+    //   id:this.user._id,
+    //   friends:this.user.friends
+    // }
+    // this._socketService.getFriendsLists(data);
 
     this._socketService.friendsWithIdAndName(this.user._id).subscribe((friends: User) => {
        this.user.friends = friends;
