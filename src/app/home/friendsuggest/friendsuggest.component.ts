@@ -18,9 +18,7 @@ export class FriendsuggestComponent implements OnInit {
   ngOnInit() {
     this._userService.userData.subscribe((data:User)=>{
       this.user = data;
-      console.log("User is ",this.user);
       this.friendSuggests = data.friendSuggests;
-      console.log("friend suggest",this.friendSuggests);
       
     })
   }

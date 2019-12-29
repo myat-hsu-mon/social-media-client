@@ -39,13 +39,17 @@
     </div>
 
 
-    <div ngbDropdown class="d-inline-block" [autoClose]="true" fxFlex  id="message-div">
-        <button mat-icon-button class="btn btn-outline-primary" id="dropdownForm1" ngbDropdownToggle
-            (click)="removeFriendSuggestsNoti()">
-            <mat-icon [matBadgeHidden]="!user.numberOfFriendSuggests > 0" [matBadge]="user.numberOfFriendSuggests"
+    <div ngbDropdown class="d-inline-block" [autoClose]="true"   id="message-div">
+        <button mat-icon-button class="btn btn-outline-primary" id="dropdownForm1" ngbDropdownToggle (click)="getMessageLists()">
+            <mat-icon [matBadgeHidden]="true" [matBadge]="4"
                 matBadgeColor="accent">message</mat-icon>
         </button>
-        <div ngbDropdownMenu aria-labelledby="dropdownForm1" *ngIf="user.friendSuggestsForNoti.length">
+        <div ngbDropdownMenu aria-labelledby="dropdownForm1" >
+            <mat-nav-list>
+                <a mat-list-item *ngFor="let message of messageList" (click)="getMessageLists()">
+                    {{message.conversationId}}
+                </a>
+            </mat-nav-list>
         </div>
     </div>
 

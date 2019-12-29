@@ -9,7 +9,6 @@ export class MessageServiceService {
   constructor() { }
 
   getMessage(message){
-    console.log('total message inside service:',message)
     this.receivedMessage.next(message);
   }
 }

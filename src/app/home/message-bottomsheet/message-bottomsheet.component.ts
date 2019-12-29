@@ -30,8 +30,7 @@ export class MessageBottomsheetComponent implements OnInit {
     this._messageService.receivedMessage.subscribe((message: User)=>{
       if(Object.keys(message).length){
           this.messages = message;
-        } 
-        console.log('message from bottom sheet:', this.messages)
+        }
     })    
     
   

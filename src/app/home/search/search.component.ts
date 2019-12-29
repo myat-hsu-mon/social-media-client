@@ -70,9 +70,7 @@ user:any;
   
   wall(searchUserData){
     this._userService.getSearchProfile(searchUserData);
-    console.log("Search User Data :",searchUserData);
-    this.router.navigate(['/home/profile',searchUserData._id]);
-    
+    this.router.navigate(['/home/profile',searchUserData._id]);   
 
   }
 

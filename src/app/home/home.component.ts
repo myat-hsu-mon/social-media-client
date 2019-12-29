@@ -32,6 +32,7 @@ export class HomeComponent implements OnInit {
     text: String ;
     myMessage="";
     otherMessage="";
+    messageList : any;
 
 
   constructor(
@@ -106,12 +107,18 @@ export class HomeComponent implements OnInit {
     this._socketService.getFriendsLists(data);
 
     this._socketService.friendsWithIdAndName(this.user._id).subscribe((friends: User) => {
-      console.log("friends are ",friends)
        this.user.friends = friends;
     })
+
     this._socketService.createPostEmit(this.user._id).subscribe((userWithNewData)=>{
       this._userService.getUserData(userWithNewData);
     })
+
+    this._socketService.gotMessageList(this.user._id).subscribe((messageList)=>{
+        this.messageList = messageList;
+    })
+
+    
 
 
   } // end on Oninit
@@ -186,14 +193,12 @@ export class HomeComponent implements OnInit {
     this._bottomSheet.dismiss();
   }
 
-  sendMessage(){   
-    const message = {
-      // from: this.data.senderId,
-      // to: this.data.receiverId,
-      body:this.text
-    }
-    this._socketService.sendMessage(message);
-    this.text = "";
+  getMessageList(){
+    this._socketService.getMessageList(this.user._id);
   }
+
+
+
+ 
 }
 
