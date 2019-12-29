@@ -98,8 +98,7 @@ export class SocketServiceService {
     })
   }
 
-  sendMessage(message){
-    
+  sendMessage(message){    
     this.socket.emit('sendMessage',message);
   }
   

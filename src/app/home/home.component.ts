@@ -10,6 +10,7 @@ import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { FriendSuggest } from '../models/friendSuggest.model';
 import { MessageBottomsheetComponent } from './message-bottomsheet/message-bottomsheet.component';
+import { MessageServiceService } from '../services/message-service.service';
 
 
 
@@ -29,6 +30,8 @@ export class HomeComponent implements OnInit {
     confirmOrFriend = 'Accept Request';
     friendsWithIdAndName =[];
     text: String ;
+    myMessage="";
+    otherMessage="";
 
 
   constructor(
@@ -38,7 +41,8 @@ export class HomeComponent implements OnInit {
     private _socketService: SocketServiceService,
     private config:NgbDropdownConfig,
     private router:Router,
-    private _bottomSheet: MatBottomSheet
+    private _bottomSheet: MatBottomSheet,
+    private _messageService:MessageServiceService
     ) { 
       config.autoClose = false;
       this.socketId = this._socketService.socketID;
@@ -86,13 +90,13 @@ export class HomeComponent implements OnInit {
       this.user.friendSuggestsForNoti = sender.friendSuggestsForNoti;
     })
 
-    this._socketService.receivedMessage(this.user._id).subscribe((message) => {
-      console.log('I received a message from other:')
-      console.log(message)
+    this._socketService.getMyMessage(this.user._id).subscribe((message)=>{
+      this._messageService.getMessage(message);
+      
     })
 
-    this._socketService.getMyMessage(this.user._id).subscribe((message)=>{
-      console.log('I received my message:', message)
+    this._socketService.receivedMessage(this.user._id).subscribe((message) => {
+      this._messageService.getMessage(message);        
     })
     
     const data = {

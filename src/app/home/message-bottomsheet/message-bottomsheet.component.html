@@ -1,12 +1,14 @@
 <h1>
     {{data.receiverName}}
 </h1>
-<div *ngFor="let message of messages">
-   <p>
-    {{message}}
-   </p> 
+<div id="div-message-area" >
+    <span *ngFor="let message of messages" [ngClass]="{'right':data.senderId == message.senderId, 'left': data.receiverId == message.senderId}" >
+        {{message.messageBody}}
+    </span>
 </div>
-<div id="textbox">
-    <input placeholder="send a message" [(ngModel)]="text">
-    <button mat-button (click)="sendMessage()">Send</button>
-</div>
+<mat-toolbar >
+    <div>
+        <input placeholder="send a message" [(ngModel)]="text">
+        <button mat-button (click)="sendMessage()">Send</button>
+    </div>
+</mat-toolbar>

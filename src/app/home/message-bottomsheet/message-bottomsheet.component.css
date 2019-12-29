@@ -1,12 +1,33 @@
-p{
-    background-color: blue;
-    border-radius: 20px;
-    padding:10px;
-    display: inline-block;
+span{
+    border-radius: 10px;
+    padding:5px;
 }
-#textbox{
+.right{
+    background-color:blue;
+    color:white;
+    display: block;
+    float: right;
+    clear:both;
+}
+.left{
+    background-color:lightgray;
+    color:black;
+    display: block;
+    float: left;
+    clear:both;
+}
+mat-toolbar{
     display:inline-block;
     position: absolute;
     bottom:0;
     left:0;
+    height:10%;
 }
+#div-message-area{
+    width:100%;
+    height:75%;
+    overflow:auto;
+}
+/* h1{
+    height:10%;
+} */

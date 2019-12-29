@@ -8,4 +8,5 @@ export interface User{
     friendSuggests:any;
     numberOfFriendSuggests:number;
     friendSuggestsForNoti:any;
+    messages:any;
 }

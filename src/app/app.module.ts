@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpServiceService } from './http-service.service';
+import { MessageServiceService } from './services/message-service.service';
 //import { SocketServiceService } from './socket-service.service';
 
 
@@ -36,7 +37,7 @@ import { HttpServiceService } from './http-service.service';
 
   ],
   exports:[],
-  providers: [HttpServiceService ],
+  providers: [HttpServiceService,MessageServiceService ],
   bootstrap: [AppComponent,],
  
 })

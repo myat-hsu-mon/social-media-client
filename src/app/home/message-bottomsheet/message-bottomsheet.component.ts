@@ -2,6 +2,8 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material';
 import { UserServiceService } from 'src/app/services/user-service.service';
 import { SocketServiceService } from '../socket-service.service';
+import { MessageServiceService } from 'src/app/services/message-service.service';
+import { User } from 'src/app/models/user.model';
 
 
 @Component({
@@ -11,16 +13,27 @@ import { SocketServiceService } from '../socket-service.service';
 })
 export class MessageBottomsheetComponent implements OnInit {
   text:String;
-  messages =[];
+  messages;
+  float: Boolean  = false;
+  // receivedMessage ="";
 
   constructor(
     private _matBottomSheetRef:MatBottomSheetRef,
     private _userService:UserServiceService,
     private _socketService:SocketServiceService,
-    @Inject(MAT_BOTTOM_SHEET_DATA)public data:any
+    private _messageService:MessageServiceService,
+    @Inject(MAT_BOTTOM_SHEET_DATA)public data:any,
+
     ) { }
 
   ngOnInit() {
+    this._messageService.receivedMessage.subscribe((message: User)=>{
+      if(Object.keys(message).length){
+          this.messages = message;
+        } 
+        console.log('message from bottom sheet:', this.messages)
+    })    
+    
   
   }
   sendMessage(){   
@@ -29,8 +42,7 @@ export class MessageBottomsheetComponent implements OnInit {
       to: this.data.receiverId,
       body:this.text
     }
-    this._socketService.sendMessage(message);
-    this.messages.push(this.text);
+    this._socketService.sendMessage(message);    
     this.text = "";
   }
 
