@@ -11,7 +11,7 @@
   </mat-card-header>
   </div>
   <div>
-      <button id="button" mat-button (click)="click(search._id, search.name, search.relationship)" #btn>{{search.relationship}}</button>   
+      <button id="button" mat-button (click)="click(search._id, search.name, search.relationship)" #btn *ngIf="search.relationship.length">{{search.relationship}}</button>   
   </div>
 
   

@@ -34,5 +34,4 @@ export class MessageBottomsheetComponent implements OnInit {
     this.text = "";
   }
 
-
 }

@@ -28,6 +28,7 @@ export class HomeComponent implements OnInit {
     friendSuggests=[];
     confirmOrFriend = 'Accept Request';
     friendsWithIdAndName =[];
+    text: String ;
 
 
   constructor(
@@ -45,7 +46,6 @@ export class HomeComponent implements OnInit {
     }
 
   ngOnInit() {
-    console.log('socket id from home:', this.socketId)
     this._userService.userData.subscribe((userData:User) =>{
       this.user = userData;       
     })
@@ -85,6 +85,15 @@ export class HomeComponent implements OnInit {
     this._socketService.acceptedRequest(this.user._id).subscribe((sender: User) => {
       this.user.friendSuggestsForNoti = sender.friendSuggestsForNoti;
     })
+
+    this._socketService.receivedMessage(this.user._id).subscribe((message) => {
+      console.log('I received a message from other:')
+      console.log(message)
+    })
+
+    this._socketService.getMyMessage(this.user._id).subscribe((message)=>{
+      console.log('I received my message:', message)
+    })
     
     const data = {
       id:this.user._id,
@@ -100,11 +109,6 @@ export class HomeComponent implements OnInit {
       this._userService.getUserData(userWithNewData);
     })
 
-    this._socketService.receivedMessage(this.user._id).subscribe((message)=>{
-      console.log("Message from home:",message);
-    })
-
-   
 
   } // end on Oninit
 
@@ -122,7 +126,9 @@ export class HomeComponent implements OnInit {
       this.searchResult = data;
      console.log('search result:', this.searchResult)
     this.searchResult = this.searchResult.map(value =>{
-      if(value.friends.includes(this.user._id)){
+      if(value._id == this.user._id){
+        value.relationship = '';
+      }else if(value.friends.includes(this.user._id)){
         value.relationship = 'Friends';
       } else if(value.friendSuggests.includes(this.user._id)){
         value.relationship = 'Cancel Request';
@@ -171,9 +177,19 @@ export class HomeComponent implements OnInit {
        hasBackdrop:false,
      });  
   }
+
   closeMessage(){
     this._bottomSheet.dismiss();
   }
 
+  sendMessage(){   
+    const message = {
+      // from: this.data.senderId,
+      // to: this.data.receiverId,
+      body:this.text
+    }
+    this._socketService.sendMessage(message);
+    this.text = "";
+  }
 }
 
