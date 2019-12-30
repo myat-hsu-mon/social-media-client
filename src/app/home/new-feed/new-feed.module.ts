@@ -4,7 +4,7 @@ import { NewFeedComponent } from './new-feed.component';
 import { FormsModule } from '@angular/forms';
 import { MaterialModule } from 'src/app/material/material.module';
 import { Routes, RouterModule } from '@angular/router';
-import { NewfeedsComponent } from '../newfeeds/newfeeds.component';
+import { PostComponent } from '../post/post.component';
  const routes :Routes =[
    {
      path:'',
@@ -16,7 +16,7 @@ import { NewfeedsComponent } from '../newfeeds/newfeeds.component';
 @NgModule({
   declarations: [
     NewFeedComponent,
-    NewfeedsComponent
+    PostComponent
 
     
   ],

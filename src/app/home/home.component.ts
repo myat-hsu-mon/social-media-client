@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatBottomSheet, MatBottomSheetConfig } from '@angular/material';
-import { CreatePostComponent } from '../create-post/create-post.component';
+import { CreatePostComponent } from './create-post/create-post.component';
 import { HttpServiceService } from '../http-service.service';
 import { UserServiceService } from '../services/user-service.service';
 import { SocketServiceService } from './socket-service.service';
@@ -153,7 +153,9 @@ export class HomeComponent implements OnInit {
      })
       
       this._userService.getSearchResult(this.searchResult);
+      this.router.navigate(['/home/search']);
       })
+     
   }  
 
 
@@ -169,9 +171,9 @@ export class HomeComponent implements OnInit {
     //socket emit 
   }
   profile(){
-    this._userService.userData.subscribe((user:User)=>{
-      this.user = user;
-    })
+    // this._userService.userData.subscribe((user:User)=>{
+    //   this.user = user;
+    // })
     this._userService.getSearchProfile(this.user);
     this.router.navigate( ['/home/profile',this.user._id]);
   }

@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { MaterialModule } from '../material/material.module';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { CreatePostComponent } from '../create-post/create-post.component';
+import { CreatePostComponent } from './create-post/create-post.component';
 import { SocketServiceService } from './socket-service.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MessageBottomsheetComponent } from './message-bottomsheet/message-bottomsheet.component';
@@ -36,10 +36,6 @@ const routes: Routes = [
         path:"search",
         loadChildren:'./search/search.module#SearchModule'
       },    
-      {
-        path:"friendsuggest",
-        loadChildren:'./friendsuggest/friendsuggest.module#FriendsuggestModule'
-      }
     ]
   },
 
@@ -49,12 +45,7 @@ const routes: Routes = [
   declarations: [
     HomeComponent,
     CreatePostComponent,
-    MessageBottomsheetComponent,
-   
-    
-  
-   
-   
+    MessageBottomsheetComponent,       
   ],
   imports: [
     CommonModule,

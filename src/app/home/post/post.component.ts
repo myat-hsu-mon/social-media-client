@@ -2,11 +2,12 @@ import { Component, OnInit, Input } from '@angular/core';
 import { UserServiceService } from 'src/app/services/user-service.service';
 
 @Component({
-  selector: 'app-newfeeds',
-  templateUrl: './newfeeds.component.html',
-  styleUrls: ['./newfeeds.component.css']
+  selector: 'app-post',
+  templateUrl: './post.component.html',
+  styleUrls: ['./post.component.css']
 })
-export class NewfeedsComponent implements OnInit {
+export class PostComponent implements OnInit {
+
   commentArray = [];
   comment = '';
   like = false;
@@ -24,16 +25,9 @@ export class NewfeedsComponent implements OnInit {
       this.user = userData;     
     });
 
-    // this._userService.postedData.subscribe(postedData =>{
-    //   this.postedData = postedData;
-    //   console.log("Newfeeds in posteddata is", this.postedData);
-    //   console.log("postedvalue",this.postedData);
-    // })
-
   }
   send(data) {
-    this.commentArray.push(data);
-  
+    this.commentArray.push(data);  
   }
 
   liked(userId) {
@@ -43,9 +37,7 @@ export class NewfeedsComponent implements OnInit {
       this.likes.splice(this.index, 1);
     } else {
       this.likes.push(userId);
-    }
-   
+    }   
   }
 }
-
 

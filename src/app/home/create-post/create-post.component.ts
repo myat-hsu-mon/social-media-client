@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpServiceService } from '../http-service.service';
-import { UserServiceService } from '../services/user-service.service';
-import { SocketServiceService } from '../home/socket-service.service';
+import { HttpServiceService } from '../../http-service.service';
+import { UserServiceService } from '../../services/user-service.service';
+import { SocketServiceService } from '../socket-service.service';
 import { MatBottomSheetRef } from '@angular/material';
 
 

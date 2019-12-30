@@ -17,11 +17,11 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
   }
+
  async login(loginData){    
   (await  this._httpService.login(loginData.value,'login'))
   .subscribe(data =>{
-    this._userService.getUserData(data);   
-  
+    this._userService.getUserData(data);     
   });   
   this.router.navigate(['/home']);
   }

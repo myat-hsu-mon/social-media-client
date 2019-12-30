@@ -13,8 +13,6 @@ const routes:Routes =[
   }
 ]
 
-
-
 @NgModule({
   declarations: [
     ProfileComponent,

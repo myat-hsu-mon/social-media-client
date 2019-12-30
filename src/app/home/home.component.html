@@ -4,7 +4,7 @@
         <!-- <textarea #textareaValue  cols="30" matInput cdkTextareaAutosize cdkAutosizeMinRows="2" cdkAutosizeMaxRows="4" disabled></textarea> -->
     </div>
     <div fxFlex>
-        <button mat-icon-button (click)="search()" routerLink="/home/search">
+        <button mat-icon-button (click)="search()" >
             <mat-icon>search</mat-icon>
         </button>
     </div>
@@ -46,14 +46,12 @@
         </button>
         <div ngbDropdownMenu aria-labelledby="dropdownForm1" >
             <mat-nav-list>
-                <a mat-list-item *ngFor="let message of messageList" (click)="getMessageList()">
-                    {{message.name}}
+                <a mat-list-item *ngFor="let friend of messageList" (click)="getMessageList()">
+                    {{friend.name}}
                 </a>
             </mat-nav-list>
         </div>
     </div>
-
-
 
     <div fxFlex> <button mat-button (click)="closeMessage()">CloseDialog</button></div>
 
@@ -63,21 +61,14 @@
         <div class="profilepicture"></div>
         <div><button class="sidenav" mat-button routerLink="/home/newfeed">Newfeed</button></div>
         <div><button class="sidenav" mat-button routerLink="/home/message">Message</button></div>
-        <div><button class="sidenav" mat-button (click)="profile()">Profile</button>
-        </div>
+        <div><button class="sidenav" mat-button (click)="profile()">Profile</button></div>
         <div><button class="sidenav" mat-button (click)="createPost()">CreatePost</button></div>
         <div><button mat-button>{{user.name}}</button></div>
     </mat-sidenav>
-    <mat-sidenav class="sidenav-end" position="end" opened mode="side">Friends
-        <mat-nav-list>
-            <a mat-list-item *ngFor="let friend of user.friends" (click)="openMessage(friend)">
-                <h1>{{ friend.name}}</h1>{{friend._id}}
-            </a>
-        </mat-nav-list>
-
+    <mat-sidenav class="sidenav-end" position="end" opened mode="side">
     </mat-sidenav>
-    <mat-sidenav-content>
 
+    <mat-sidenav-content>
         <form action="">
             <mat-form-field>
                 <mat-label>What is happening in the world?</mat-label>
