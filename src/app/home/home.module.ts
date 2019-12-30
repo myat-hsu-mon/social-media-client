@@ -25,7 +25,7 @@ const routes: Routes = [
         loadChildren:'./new-feed/new-feed.module#NewFeedModule'
       },
       {
-        path: "profile/:id",
+        path: ":id",
         loadChildren:'./profile/profile.module#ProfileModule'
       },
       {

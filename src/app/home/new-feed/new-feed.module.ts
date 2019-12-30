@@ -4,7 +4,7 @@ import { NewFeedComponent } from './new-feed.component';
 import { FormsModule } from '@angular/forms';
 import { MaterialModule } from 'src/app/material/material.module';
 import { Routes, RouterModule } from '@angular/router';
-import { PostComponent } from '../post/post.component';
+import { PostModule } from '../shared-modules/post/post.module';
  const routes :Routes =[
    {
      path:'',
@@ -15,18 +15,13 @@ import { PostComponent } from '../post/post.component';
 
 @NgModule({
   declarations: [
-    NewFeedComponent,
-    PostComponent
-
+    NewFeedComponent, 
     
   ],
   imports: [
-    CommonModule,
-    FormsModule,
-    MaterialModule,
     RouterModule.forChild(routes),
+    PostModule,
    
   ],
- // exports:[NewfeedsComponent]
 })
 export class NewFeedModule { }

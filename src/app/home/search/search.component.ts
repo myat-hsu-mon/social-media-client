@@ -23,8 +23,7 @@ user:any;
     private router:Router
     ) {
       // config.placement = 'top-left';
-      config.autoClose = false;
-      
+      config.autoClose = false;      
    }
 
   
@@ -32,6 +31,7 @@ user:any;
   ngOnInit() {
     this._userService.searchResult.subscribe(searchResult=>{
       this.searchResult = searchResult;
+      console.log("Search to for loop:",this.searchResult)
       
     });
 
@@ -70,7 +70,7 @@ user:any;
   
   wall(searchUserData){
     this._userService.getSearchProfile(searchUserData);
-    this.router.navigate(['/home/profile',searchUserData._id]);   
+    this.router.navigate(['/home',searchUserData._id]);   
 
   }
 

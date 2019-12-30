@@ -175,7 +175,7 @@ export class HomeComponent implements OnInit {
     //   this.user = user;
     // })
     this._userService.getSearchProfile(this.user);
-    this.router.navigate( ['/home/profile',this.user._id]);
+    this.router.navigate( ['/home',this.user._id]);
   }
 
   openMessage(friend){
