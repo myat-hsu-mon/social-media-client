@@ -1,3 +1,10 @@
+
+<mat-toolbar >
+    <div>
+        <input placeholder="send a message" [(ngModel)]="text">
+        <button mat-button (click)="sendMessage()">Send</button>
+    </div>
+</mat-toolbar>
 <h1>
     {{data.receiverName}}
 </h1>
@@ -6,9 +13,4 @@
         {{message.messageBody}}
     </span>
 </div>
-<mat-toolbar >
-    <div>
-        <input placeholder="send a message" [(ngModel)]="text">
-        <button mat-button (click)="sendMessage()">Send</button>
-    </div>
-</mat-toolbar>
+
