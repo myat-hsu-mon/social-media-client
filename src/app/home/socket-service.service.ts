@@ -130,4 +130,16 @@ export class SocketServiceService {
     })
   }
 
+  openMessageConversation(conversationData){
+    this.socket.emit('openMessageConversation', conversationData);
+  }
+
+  receivedMessageConversation(){
+    return new Observable((observer )=>{
+      this.socket.on(`receivedMessageConversation`, (messageConversation)=>{
+        observer.next(messageConversation);
+      })
+    })
+  }
+
 }// end of class

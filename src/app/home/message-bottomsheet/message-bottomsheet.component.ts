@@ -1,6 +1,5 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material';
-import { UserServiceService } from 'src/app/services/user-service.service';
+import { Component, OnInit, Inject, ElementRef, ViewChild, AfterViewChecked } from '@angular/core';
+import {  MAT_BOTTOM_SHEET_DATA } from '@angular/material';
 import { SocketServiceService } from '../socket-service.service';
 import { MessageServiceService } from 'src/app/services/message-service.service';
 import { User } from 'src/app/models/user.model';
@@ -11,29 +10,35 @@ import { User } from 'src/app/models/user.model';
   templateUrl: './message-bottomsheet.component.html',
   styleUrls: ['./message-bottomsheet.component.css']
 })
-export class MessageBottomsheetComponent implements OnInit {
+export class MessageBottomsheetComponent implements OnInit, AfterViewChecked {
   text:String;
   messages;
-  float: Boolean  = false;
-  // receivedMessage ="";
-
+  @ViewChild('scrollMe', {static:false}) private myScrollContainer: ElementRef;
   constructor(
-    private _matBottomSheetRef:MatBottomSheetRef,
-    private _userService:UserServiceService,
     private _socketService:SocketServiceService,
     private _messageService:MessageServiceService,
     @Inject(MAT_BOTTOM_SHEET_DATA)public data:any,
 
     ) { }
-
+    
   ngOnInit() {
     this._messageService.receivedMessage.subscribe((message: User)=>{
       if(Object.keys(message).length){
           this.messages = message;
         }
-    })    
+    })  
     
-  
+    this.scrollToBottom();
+  }
+
+  ngAfterViewChecked() {        
+    this.scrollToBottom();        
+  } 
+
+  scrollToBottom(): void {
+    try {
+        this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+    } catch(err) { }                 
   }
   sendMessage(){   
     const message = {

@@ -33,6 +33,7 @@ export class HomeComponent implements OnInit {
     myMessage="";
     otherMessage="";
     messageList : any;
+    messageConversation;
 
 
   constructor(
@@ -52,7 +53,8 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this._userService.userData.subscribe((userData:User) =>{
-      this.user = userData;       
+      this.user = userData;  
+      console.log(this.user)     
     })
 
     this._socketService.friendRequest(this.user._id).subscribe((receiver: User)=>{
@@ -99,13 +101,10 @@ export class HomeComponent implements OnInit {
     this._socketService.receivedMessage(this.user._id).subscribe((message) => {
       this._messageService.getMessage(message);        
     })
-    
-    // const data = {
-    //   id:this.user._id,
-    //   friends:this.user.friends
-    // }
-    // this._socketService.getFriendsLists(data);
 
+    this._socketService.receivedMessageConversation().subscribe((messageConversation) => {
+      this._messageService.getMessage(messageConversation);
+    })
     this._socketService.friendsWithIdAndName(this.user._id).subscribe((friends: User) => {
        this.user.friends = friends;
     })
@@ -178,13 +177,19 @@ export class HomeComponent implements OnInit {
     this.router.navigate( ['/home/profile',this.user._id]);
   }
 
-  openMessage(friend){
-    this._userService.getFriend(friend);
+  openMessageConversation(conversation
+    ){
+    
+    let conversationData = {
+      conversationId: conversation._id,
+      viewerId: this.user._id
+    }
+    this._socketService.openMessageConversation(conversationData)
      this._bottomSheet.open(MessageBottomsheetComponent,{
        data:{
-         receiverId:friend._id,
-         receiverName:friend.name,
          senderId:this.user._id,
+         receiverId: conversation._id,
+         receiverName: conversation.name,
         },
        panelClass:'resize',
        disableClose:true,

@@ -9,15 +9,11 @@ import { User } from 'src/app/models/user.model';
 })
 export class ProfileComponent implements OnInit {
   user:Object;
-  posts;
-  name:String;
-
   constructor(private _userService:UserServiceService) { }
 
   ngOnInit() {
    this._userService.searchProfileData.subscribe((searchUser:User)=>{
-     this.name = searchUser.name;
-     this.posts = searchUser.posts;
+     this.user = searchUser;
    })
 
   }
