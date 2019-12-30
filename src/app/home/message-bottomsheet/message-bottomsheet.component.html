@@ -1,7 +1,7 @@
 <h1>
     {{data.receiverName}}
 </h1>
-<div id="div-message-area" >
+<div id="div-message-area"  #scrollMe>
     <span *ngFor="let message of messages" [ngClass]="{'right':data.senderId == message.senderId, 'left': data.receiverId == message.senderId}" >
         {{message.messageBody}}
     </span>

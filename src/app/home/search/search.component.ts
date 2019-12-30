@@ -23,13 +23,14 @@ user:any;
     private router:Router
     ) {
       // config.placement = 'top-left';
-      config.autoClose = false;      
+     // config.autoClose = false;      
    }
 
   
 
   ngOnInit() {
     this._userService.searchResult.subscribe(searchResult=>{
+      console.log('in search:', searchResult)
       this.searchResult = searchResult;
       console.log("Search to for loop:",this.searchResult)
       
