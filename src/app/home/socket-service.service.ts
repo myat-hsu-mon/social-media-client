@@ -11,10 +11,18 @@ export class SocketServiceService {
   constructor() {
    this.socket.on('connect',()=>{
      this.socketID = this.socket.id;
-      console.log('socket id from service:', this.socketID)
     })
   }
 
+  login(userId, userName){
+    const user = {
+      userId,
+      userName
+    }
+    this.socket.emit('login', user);
+  }
+
+  
   addFriend(data) {
     this.socket.emit('addFriend', data);
   }
@@ -66,7 +74,6 @@ export class SocketServiceService {
   }
 
   friendSuggestNoti(id) {
-    console.log("sender id for noti", id)
     return new Observable((observer) => {
       this.socket.on(`${id}friendSuggestNoti`, (data) => {
         observer.next(data);

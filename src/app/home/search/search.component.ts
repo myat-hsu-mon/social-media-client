@@ -5,6 +5,7 @@ import { User } from 'src/app/models/user.model';
 import { HttpServiceService } from 'src/app/http-service.service';
 import {NgbDropdownConfig} from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
+import { ProfileComponent } from '../profile/profile.component';
 
 @Component({
   selector: 'app-search',
@@ -14,6 +15,7 @@ import { Router } from '@angular/router';
 })
 export class SearchComponent implements OnInit {
 searchResult:any;
+searchUserData:any;
 user:any;
   constructor(
     private _userService:UserServiceService,
@@ -35,6 +37,7 @@ user:any;
 
     this._userService.userData.subscribe(userData =>{
       this.user = userData;
+      
     })
 
   }
@@ -69,11 +72,9 @@ user:any;
   async wall(searchId){
      (await this._httpService.getSearchUserData(searchId,'profile'))
     .subscribe(searchUserData =>{
-      // _id,name,posts 
-      this.user = searchUserData;
-      this.user.viewerId = this.user._id;
-      console.log("Data to enter wall ,", this.user);
-      this._userService.getSearchProfile(this.user);
+      this.searchUserData = searchUserData;
+      this.searchUserData.viewerId = this.user._id;
+      this._userService.getSearchProfile(this.searchUserData);
     });
 
     this.router.navigate(['/home/profile',searchId]);  
