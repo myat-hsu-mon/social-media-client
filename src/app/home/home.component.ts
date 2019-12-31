@@ -52,10 +52,13 @@ export class HomeComponent implements OnInit {
     }
 
   ngOnInit() {
+    
     this._userService.userData.subscribe((userData:User) =>{
       this.user = userData;  
       console.log(this.user)     
     })
+
+    this._socketService.login(this.user._id, this.user.name)
 
     this._socketService.friendRequest(this.user._id).subscribe((receiver: User)=>{
       
@@ -103,7 +106,9 @@ export class HomeComponent implements OnInit {
     })
 
     this._socketService.receivedMessageConversation().subscribe((messageConversation) => {
-      this._messageService.getMessage(messageConversation);
+      console.log('message in home:', messageConversation)
+      this.messageConversation = messageConversation;
+      //this._messageService.getMessage(messageConversation);
     })
     this._socketService.friendsWithIdAndName(this.user._id).subscribe((friends: User) => {
        this.user.friends = friends;
@@ -115,7 +120,6 @@ export class HomeComponent implements OnInit {
 
     this._socketService.gotMessageList(this.user._id).subscribe((messageList)=>{
         this.messageList = messageList;
-        console.log("Message list :",this.messageList);
     })
 
     
@@ -187,6 +191,7 @@ export class HomeComponent implements OnInit {
     this._socketService.openMessageConversation(conversationData)
      this._bottomSheet.open(MessageBottomsheetComponent,{
        data:{
+         messages: this.messageConversation,
          senderId:this.user._id,
          receiverId: conversation._id,
          receiverName: conversation.name,

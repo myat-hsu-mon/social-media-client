@@ -5,6 +5,7 @@ import { User } from 'src/app/models/user.model';
 import { HttpServiceService } from 'src/app/http-service.service';
 import {NgbDropdownConfig} from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
+import { ProfileComponent } from '../profile/profile.component';
 
 @Component({
   selector: 'app-search',
@@ -37,6 +38,7 @@ user:any;
 
     this._userService.userData.subscribe(userData =>{
       this.user = userData;
+      
     })
 
   }
@@ -69,8 +71,9 @@ user:any;
   }
   
   wall(searchUserData){
+    searchUserData.viewerId = this.user._id;
     this._userService.getSearchProfile(searchUserData);
-    this.router.navigate(['/home/profile',searchUserData._id]);   
+    this.router.navigate(['/home/profile',searchUserData._id]);  
 
   }
 

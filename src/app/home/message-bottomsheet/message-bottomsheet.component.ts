@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ElementRef, ViewChild, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, Inject, ElementRef, ViewChild, AfterViewChecked, OnDestroy } from '@angular/core';
 import {  MAT_BOTTOM_SHEET_DATA } from '@angular/material';
 import { SocketServiceService } from '../socket-service.service';
 import { MessageServiceService } from 'src/app/services/message-service.service';
@@ -22,14 +22,23 @@ export class MessageBottomsheetComponent implements OnInit, AfterViewChecked {
     ) { }
     
   ngOnInit() {
-    this._messageService.receivedMessage.subscribe((message: User)=>{
-      if(Object.keys(message).length){
-          this.messages = message;
-        }
-    })  
+    console.log(' data messages',this.data.messages)
+    console.log('data:', this.data)
+    // this._messageService.receivedMessage.subscribe((message: User)=>{
+    //   console.log('message in message-bottom:', message)
+    //   if(Object.keys(message).length){
+    //       this.messages = message;
+    //     }
+    //     else{
+    //       this.messages = [];
+    //     }
+        
+    // })  
     
     this.scrollToBottom();
   }
+
+
 
   ngAfterViewChecked() {        
     this.scrollToBottom();        

@@ -15,6 +15,15 @@ export class SocketServiceService {
     })
   }
 
+  login(userId, userName){
+    const user = {
+      userId,
+      userName
+    }
+    this.socket.emit('login', user);
+  }
+
+  
   addFriend(data) {
     this.socket.emit('addFriend', data);
   }
