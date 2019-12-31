@@ -26,8 +26,8 @@ export class PostComponent implements OnInit {
     });
 
   }
-  send(data) {
-    this.commentArray.push(data);  
+  send(comment) {
+    this.commentArray.push(comment);  
   }
 
   liked(userId) {

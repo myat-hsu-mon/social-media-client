@@ -12,8 +12,8 @@ export class ProfileComponent implements OnInit {
   constructor(private _userService:UserServiceService) { }
 
   ngOnInit() {
-   this._userService.searchProfileData.subscribe((searchUser:User)=>{
-     this.user = searchUser;
+   this._userService.searchProfileData.subscribe((searchUserData:User)=>{
+     this.user = searchUserData;
    })
 
   }

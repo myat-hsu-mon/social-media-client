@@ -53,8 +53,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this._userService.userData.subscribe((userData:User) =>{
-      this.user = userData;  
-      console.log(this.user)     
+      this.user = userData;     
     })
 
     this._socketService.friendRequest(this.user._id).subscribe((receiver: User)=>{
@@ -134,8 +133,7 @@ export class HomeComponent implements OnInit {
   async search(){    
    return (await this._httpService.search({searchValue: this.searchValue},'search'))
    .subscribe(data =>{
-      this.searchResult = data;
-     console.log('search result:', this.searchResult)
+      this.searchResult = data;//name,_id
     this.searchResult = this.searchResult.map(value =>{
       if(value._id == this.user._id){
         value.relationship = '';
@@ -174,7 +172,7 @@ export class HomeComponent implements OnInit {
     //   this.user = user;
     // })
     this._userService.getSearchProfile(this.user);
-    this.router.navigate( ['/home',this.user._id]);
+    this.router.navigate( ['/home/profile',this.user._id]);
   }
 
   openMessageConversation(conversation

@@ -30,10 +30,7 @@ user:any;
 
   ngOnInit() {
     this._userService.searchResult.subscribe(searchResult=>{
-      console.log('in search:', searchResult)
-      this.searchResult = searchResult;
-      console.log("Search to for loop:",this.searchResult)
-      
+      this.searchResult = searchResult;      
     });
 
     this._userService.userData.subscribe(userData =>{
@@ -69,9 +66,17 @@ user:any;
     this._socketService.cancelRequest(data)
   }
   
-  wall(searchUserData){
-    this._userService.getSearchProfile(searchUserData);
-    this.router.navigate(['/home',searchUserData._id]);   
+  async wall(searchId){
+     (await this._httpService.getSearchUserData(searchId,'profile'))
+    .subscribe(searchUserData =>{
+      // _id,name,posts 
+      this.user = searchUserData;
+      this.user.viewerId = this.user._id;
+      console.log("Data to enter wall ,", this.user);
+      this._userService.getSearchProfile(this.user);
+    });
+
+    this.router.navigate(['/home/profile',searchId]);  
 
   }
 

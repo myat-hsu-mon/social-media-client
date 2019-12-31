@@ -2,28 +2,52 @@
     background-image: url('cat.jpg');
     background-size: cover;
    }
-   button{
-       width:45%;
-   }
+  
    mat-card-content{
        display: inline;
    }
    .backgroundColor{
        background-color:blue;
+       
    }
    img{
        width:40px;
        height:40px;
        border-radius:100px;
+       margin-right: 5px;
        
    }
   #comment{
-     background-color:blue;
+     background-color:lightblue;
      color:white;
      border-radius: 20px;
      padding: 10px;
  }
  mat-card{
-    border-bottom: lightblue;
+    border-bottom: 1px solid blue;
+    border-top: 1px solid blue;
+    margin-bottom: 20px;
+    border-radius: 10px;
+ }
+ input{
+     display: inline-block;
+     width:100%;
+     
+ }
+ button{
+     width:30%;
+     display: inline-block;
+ }
+ .button{
+    display: inline-block;
+    width:40%;
+    
+ }
+ mat-card-actions{
+     margin-top:40px;
+     margin-bottom: 20px;
+ }
+ #commentbox{
+     height:20px;
  }
 

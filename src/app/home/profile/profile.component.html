@@ -1,4 +1,12 @@
-<!-- <div>
-    <img src="pug1.jpg" alt="Pug">
-</div> -->
-<app-post *ngFor="let post of posts" [post]="post" [name]="name"></app-post>
+<div id="coverphoto-div"> Cover Photo </div>
+<div id = "message-div"  > 
+    <span>{{user.name}}</span>
+    <button mat-button color="primary" class="relation-button">Cancel Request</button>
+    <button mat-button color="primary" class="message-button" disabled="false" (click)="sendMessage()">Send Message</button>
+    
+    
+</div>
+<app-post *ngFor="let post of user.posts" [post]="post" [name]="user.name" ></app-post>
+<!-- <p *ngIf="user.posts.length == 0">No posts to show</p> -->
+{{user.viewerId}} viewer 
+{{user.name}} search to enter wall

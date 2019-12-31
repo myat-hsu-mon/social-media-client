@@ -1,20 +1,31 @@
 <mat-card>
     <mat-card-header>
         <div mat-card-avatar class="avatar"></div>
-        <mat-card-title>{{name}}</mat-card-title>
+        <mat-card-title style="color:blue">{{name}}</mat-card-title>
         <mat-card-subtitle>happy</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>{{post}}</mat-card-content>
     <mat-card-actions>
-        <button mat-button (click)="liked(2)" [ngClass]="{backgroundColor:like}">
+        <mat-divider></mat-divider>
+        <button mat-button (click)="liked(2)" [ngClass]="{backgroundColor:like }" class="button">
             Like
         </button>
-        <button mat-button>
+        <button mat-button class="button">
             <mat-icon>comment</mat-icon><span>Comment</span>
         </button>
+        <mat-divider></mat-divider>
     </mat-card-actions>
-</mat-card>
+        <input  matInput placeholder="Write a comment"  #comment>
+        <!-- <button (click)="send(comment.value)" >send</button> -->
 
+        <div *ngFor="let comment of commentArray"  >         
+            <img src="./cat.jpg" alt="pug" >  
+                   <span id="comment">
+                    {{comment}}
+                   </span>                
+        </div>
+</mat-card>
+<!-- 
 <mat-card>
     <mat-card-header>
         <div mat-card-avatar class="avatar"></div>
@@ -30,7 +41,7 @@
             {{comment}}
            </span>
         
-</div>
+</div> -->
 
 <!-- <mat-card *ngFor="let comment of commentArray">
     <mat-card-header>
