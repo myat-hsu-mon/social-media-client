@@ -22,18 +22,15 @@ export class MessageBottomsheetComponent implements OnInit, AfterViewChecked {
     ) { }
     
   ngOnInit() {
-    console.log(' data messages',this.data.messages)
-    console.log('data:', this.data)
-    // this._messageService.receivedMessage.subscribe((message: User)=>{
-    //   console.log('message in message-bottom:', message)
-    //   if(Object.keys(message).length){
-    //       this.messages = message;
-    //     }
-    //     else{
-    //       this.messages = [];
-    //     }
+    this._messageService.receivedMessage.subscribe((messages: User)=>{
+      if(Object.keys(messages).length){
+          this.messages = messages;
+        }
+        else{
+          this.messages = [];
+        }
         
-    // })  
+    })  
     
     this.scrollToBottom();
   }
@@ -60,3 +57,4 @@ export class MessageBottomsheetComponent implements OnInit, AfterViewChecked {
   }
 
 }
+

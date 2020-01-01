@@ -57,7 +57,7 @@ export class HomeComponent implements OnInit {
       this.user = userData;     
     })
 
-    this._socketService.login(this.user._id, this.user.name)
+   // this._socketService.login(this.user._id, this.user.name)
 
     this._socketService.friendRequest(this.user._id).subscribe((receiver: User)=>{
       
@@ -107,7 +107,7 @@ export class HomeComponent implements OnInit {
     this._socketService.receivedMessageConversation().subscribe((messageConversation) => {
       console.log('message in home:', messageConversation)
       this.messageConversation = messageConversation;
-      //this._messageService.getMessage(messageConversation);
+      this._messageService.getMessage(messageConversation);
     })
     this._socketService.friendsWithIdAndName(this.user._id).subscribe((friends: User) => {
        this.user.friends = friends;
@@ -121,9 +121,13 @@ export class HomeComponent implements OnInit {
         this.messageList = messageList;
     })
 
+    this._socketService.getActiveFriends(this.user._id).subscribe( activeFriends =>{
+      this.user.activeFriends = activeFriends;
+      console.log('active friends:', this.user.activeFriends)
+    })
     
 
-
+    console.log('active friends:', this.user.activeFriends)
   } // end on Oninit
 
   removeFriendSuggestsNoti(){
