@@ -21,6 +21,14 @@ export class SocketServiceService {
     }
     this.socket.emit('login', user);
   }
+  
+  getActiveFriends(id){
+    return new Observable( observer =>{
+      this.socket.on(`${id}getActiveFriends`,activeFriends =>{
+        observer.next(activeFriends)
+      })
+    })
+  }
 
   
   addFriend(data) {
