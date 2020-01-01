@@ -36,7 +36,8 @@ export class CreatePostComponent implements OnInit {
     // })
     const data = {
       postedValue,
-      id:this.user._id
+      id:this.user._id,
+      name:this.user.name
     };
     this._socketService.createPost(data);
    

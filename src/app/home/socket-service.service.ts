@@ -157,4 +157,8 @@ export class SocketServiceService {
     })
   }
 
+  like(likeData){
+    this.socket.emit('like', likeData);
+  }
+
 }// end of class
