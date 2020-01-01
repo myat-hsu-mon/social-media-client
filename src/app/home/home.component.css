@@ -69,3 +69,9 @@ mat-card{
 #friend-suggest-div{
     margin-left:20px;
 }
+
+#active-now-div{
+    width : 50%;
+    position : absolute;
+    right : 0;
+}

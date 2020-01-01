@@ -24,10 +24,10 @@ export class PostComponent implements OnInit {
     this._userService.userData.subscribe(userData =>{
       this.user = userData;     
     });
-
   }
+
   send(comment) {
-    this.commentArray.push(comment);  
+    this.commentArray.push(comment); 
   }
 
   liked(userId) {
@@ -39,5 +39,6 @@ export class PostComponent implements OnInit {
       this.likes.push(userId);
     }   
   }
+
 }
 

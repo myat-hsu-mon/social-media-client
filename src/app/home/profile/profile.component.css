@@ -8,16 +8,13 @@
     height: 40px;
     margin-bottom: 20px;
     border:1px solid blue;
+    border-radius: 10px;
 }
 
 .relation-button{
     position: absolute;
     right: 140px;
 }
-
-/* .relation-button:hover{
-    background-color: whitesmoke;
-} */
 
 .message-button{
     position: absolute;
@@ -27,9 +24,25 @@
 .message-button, .relation-button{
     border:1px solid black;
 }
-
-
  
 span{
     font-size: 1.5em;
 }
+
+mat-form-field{
+    width:100%;
+}
+
+
+#form-div{
+    margin-bottom: 10px;
+}
+
+#post-button{
+    width:30%;
+}
+
+input[type="file"]{
+    visibility: hidden;
+}
+

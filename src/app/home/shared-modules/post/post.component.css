@@ -6,23 +6,25 @@
    mat-card-content{
        display: inline;
    }
+
    .backgroundColor{
-       background-color:blue;
-       
+       background-color:blue;       
    }
+
    img{
        width:40px;
        height:40px;
        border-radius:100px;
-       margin-right: 5px;
-       
+       margin-right: 5px;       
    }
+
   #comment{
      background-color:lightblue;
      color:white;
      border-radius: 20px;
      padding: 10px;
  }
+
  mat-card{
     border-bottom: 1px solid blue;
     border-top: 1px solid blue;
@@ -31,9 +33,9 @@
  }
  input{
      display: inline-block;
-     width:100%;
-     
+     width:100%;     
  }
+ 
  button{
      width:30%;
      display: inline-block;

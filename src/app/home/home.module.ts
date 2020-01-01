@@ -8,6 +8,7 @@ import { CreatePostComponent } from './create-post/create-post.component';
 import { SocketServiceService } from './socket-service.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MessageBottomsheetComponent } from './message-bottomsheet/message-bottomsheet.component';
+import { FriendRelationServiceService } from './services/friend-relation-service.service';
 // import { MessageServiceService } from '../services/message-service.service';
 
 
@@ -60,7 +61,7 @@ const routes: Routes = [
     CreatePostComponent,
     MessageBottomsheetComponent
   ],
-  providers:[SocketServiceService]
+  providers:[SocketServiceService, FriendRelationServiceService]
 
 })
 export class HomeModule { }

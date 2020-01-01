@@ -22,6 +22,7 @@ import { MessageServiceService } from '../services/message-service.service';
 })
 export class HomeComponent implements OnInit {
     user;
+    myData;
     socketId;
     searchValue : String;
     searchResult : any = [];
@@ -113,8 +114,9 @@ export class HomeComponent implements OnInit {
        this.user.friends = friends;
     })
 
-    this._socketService.createPostEmit(this.user._id).subscribe((userWithNewData)=>{
-      this._userService.getUserData(userWithNewData);
+    this._socketService.createPostEmit(this.user._id).subscribe((userWithNewPost)=>{
+      console.log("user with new post:", userWithNewPost)
+      this._userService.getUserData(userWithNewPost);
     })
 
     this._socketService.gotMessageList(this.user._id).subscribe((messageList)=>{
@@ -137,12 +139,12 @@ export class HomeComponent implements OnInit {
   async search(){    
    return (await this._httpService.search({searchValue: this.searchValue},'search'))
    .subscribe(data =>{
-      this.searchResult = data;//name,_id
+      this.searchResult = data;//name,_id,friends,friendrequests,friendsuggests
     this.searchResult = this.searchResult.map(value =>{
       if(value._id == this.user._id){
         value.relationship = '';
       }else if(value.friends.includes(this.user._id)){
-        value.relationship = 'Friends';
+        value.relationship = 'Friend';
       } else if(value.friendSuggests.includes(this.user._id)){
         value.relationship = 'Cancel Request';
       }else if(value.friendRequests.includes(this.user._id)){
@@ -175,7 +177,13 @@ export class HomeComponent implements OnInit {
     // this._userService.userData.subscribe((user:User)=>{
     //   this.user = user;
     // })
-    this._userService.getSearchProfile(this.user);
+    this.myData ={
+      viewerId:this.user._id,
+      _id:this.user._id,
+      name:this.user.name,
+      posts:this.user.posts
+    }
+    this._userService.getSearchProfile(this.myData);
     this.router.navigate( ['/home/profile',this.user._id]);
   }
 

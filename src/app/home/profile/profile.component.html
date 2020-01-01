@@ -1,13 +1,24 @@
 <div id="coverphoto-div"> Cover Photo </div>
 <div id = "message-div"  > 
-    <span>{{user.name}}</span>
-    <button mat-button color="primary" class="relation-button">Cancel Request</button>
-    <button mat-button color="primary" class="message-button" disabled="false" (click)="sendMessage()">Send Message</button>
-    
-    
+    <span>{{searchUser.name}}</span>
+    <span *ngIf="searchUser.viewerId != searchUser._id">
+        <button mat-button color="primary" class="relation-button" (click)="makeFriendRelation()">{{searchUser.relationship}}</button>
+        <button mat-button color="primary" class="message-button" [disabled]="messageButtonVisible" (click)="sendMessage()">Send Message</button>
+    </span>   
 </div>
-<app-post *ngFor="let post of user.posts" [post]="post" [name]="user.name" ></app-post>
-<!-- <p *ngIf="user.posts.length == 0">No posts to show</p> -->
-{{user.viewerId}} viewer 
+<div id="form-div">
+    <form  [formGroup]="form" (ngSubmit)="onPost(form.value)">
+        <mat-form-field appearance="outline" >
+            <mat-label>What is on your mind ?</mat-label>
+            <input matInput formControlName="text">
+        </mat-form-field>
+        <!-- <div>
+            <button mat-stroked-button (click)="imagePicked.click()">Photo/Video</button>
+            <input type="file" #imagePicked (change)="onImagePicked($event)" formControlName="image">
+        </div> -->
+        
+<button id="post-button" mat-button color="primary" type="submit">Post</button>
+    </form>
 
-{{user.name}} search to enter wall
+<app-post *ngFor="let post of searchUser.posts" [post]="post" [name]="searchUser.name" ></app-post>
+<!-- <p *ngIf="user.posts.length == 0">No posts to show</p> -->

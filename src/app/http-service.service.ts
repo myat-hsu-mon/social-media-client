@@ -34,7 +34,7 @@ async createPost(postValueAndUserId,url){
 async search(searchValue,url){
   return this.http.post(environment.host+url,JSON.stringify(searchValue),this.httpOptions)
 }
-async getSearchUserData(id,url){
+async getSearchUser(id,url){
   return  this.http.post(environment.host+url,JSON.stringify({id}),this.httpOptions);
 }
 async profile(id,url){

@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ProfileComponent } from './profile.component';
 import { PostModule } from '../shared-modules/post/post.module';
 import { MaterialModule } from 'src/app/material/material.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 //import { NewFeedModule } from '../new-feed/new-feed.module';
 const routes:Routes =[
   {
@@ -19,6 +20,7 @@ const routes:Routes =[
   imports: [
     PostModule,
     RouterModule.forChild(routes),
+    ReactiveFormsModule,
 
   ],
   exports:[RouterModule]
