@@ -128,8 +128,7 @@ export class HomeComponent implements OnInit {
       console.log('active friends:', this.user.activeFriends)
     })
     
-
-    console.log('active friends:', this.user.activeFriends)
+    
   } // end on Oninit
 
   removeFriendSuggestsNoti(){
