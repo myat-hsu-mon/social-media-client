@@ -70,10 +70,10 @@ export class SearchComponent implements OnInit {
   async wall(searchId, relationship) {
     (await this._httpService.getSearchUser(searchId, 'profile'))
       .subscribe(searchUser => {
-        this.searchUser = searchUser;
+        this.searchUser = searchUser;//_id,name,posts
         this.searchUser.viewerId = this.user._id;
         this.searchUser.relationship = relationship;
-       // this._userService.getSearchProfile(this.searchUser);
+        this._userService.getProfile(this.searchUser);
       });
     this.router.navigate(['/home/profile', searchId]);
   }

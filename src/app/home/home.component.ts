@@ -35,6 +35,7 @@ export class HomeComponent implements OnInit {
     otherMessage="";
     messageList : any;
     messageConversation;
+    profileData : any;
 
 
   constructor(
@@ -178,8 +179,12 @@ export class HomeComponent implements OnInit {
   }
   async getProfile(){
     (await this._httpService.getProfile(this.user._id,'profile'))
-   .subscribe(profileData =>{
-    this._userService.getProfile(profileData);
+   .subscribe(profileData =>{//id name posts
+    this.profileData = profileData;
+    this.profileData.viewerId = this.user._id;
+    console.log("Profile Data :",this.profileData);
+    
+    this._userService.getProfile(this.profileData);
    })
     
     this.router.navigate( ['/home/profile',this.user._id]);

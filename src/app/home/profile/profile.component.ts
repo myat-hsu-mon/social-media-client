@@ -44,7 +44,7 @@ export class ProfileComponent implements OnInit {
     
     this._userService.profileData.subscribe((profileData: User) => {
       profileData.posts =  profileData.posts.reverse() ;
-      this.user = profileData;
+      this.user = profileData ;
       console.log("user:",this.user)
     })   
   }
