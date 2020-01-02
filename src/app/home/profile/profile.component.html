@@ -20,5 +20,11 @@
 <button id="post-button" mat-button color="primary" type="submit">Post</button>
     </form>
 
-<app-post *ngFor="let post of user.posts" [post]="post" [name]="user.name" ></app-post>
+<app-post 
+*ngFor="let post of user.posts" 
+[post]="post" 
+[name]="user.name" 
+[viewerId]="user.viewerId" 
+
+></app-post>
 <!-- <p *ngIf="user.posts.length == 0">No posts to show</p> -->

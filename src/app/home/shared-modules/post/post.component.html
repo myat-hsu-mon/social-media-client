@@ -7,7 +7,7 @@
     <mat-card-content>{{post.body}}</mat-card-content>
     <mat-card-actions>
         <mat-divider></mat-divider>
-        <button mat-button (click)="like(post._id, post.authorId, user._id)" [ngClass]="{backgroundColor: post.isLike }" class="button">
+        <button mat-button (click)="like(post._id, post.authorId, post.isLike, viewerId)" [ngClass]="{backgroundColor: post.isLike }" class="button">
             Like
         </button>
         <button mat-button class="button">
