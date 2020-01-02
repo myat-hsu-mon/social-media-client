@@ -73,7 +73,7 @@ export class SearchComponent implements OnInit {
         this.searchUser = searchUser;
         this.searchUser.viewerId = this.user._id;
         this.searchUser.relationship = relationship;
-        this._userService.getSearchProfile(this.searchUser);
+       // this._userService.getSearchProfile(this.searchUser);
       });
     this.router.navigate(['/home/profile', searchId]);
   }

@@ -1,10 +1,10 @@
 <div id="coverphoto-div"> Cover Photo </div>
 <div id = "message-div"  > 
-    <span>{{searchUser.name}}</span>
-    <span *ngIf="searchUser.viewerId != searchUser._id">
+    <span>{{user.name}}</span>
+    <!-- <span *ngIf="searchUser.viewerId != searchUser._id">
         <button mat-button color="primary" class="relation-button" (click)="makeFriendRelation()">{{searchUser.relationship}}</button>
         <button mat-button color="primary" class="message-button" [disabled]="messageButtonVisible" (click)="sendMessage()">Send Message</button>
-    </span>   
+    </span>    -->
 </div>
 <div id="form-div">
     <form  [formGroup]="form" (ngSubmit)="onPost(form.value)">
@@ -20,5 +20,5 @@
 <button id="post-button" mat-button color="primary" type="submit">Post</button>
     </form>
 
-<app-post *ngFor="let post of searchUser.posts" [post]="post" [name]="searchUser.name" ></app-post>
+<app-post *ngFor="let post of user.posts" [post]="post" [name]="user.name" ></app-post>
 <!-- <p *ngIf="user.posts.length == 0">No posts to show</p> -->

@@ -176,17 +176,12 @@ export class HomeComponent implements OnInit {
     this._socketService.acceptRequest(data);//confirm data via socket server
     //socket emit 
   }
-  profile(){
-    // this._userService.userData.subscribe((user:User)=>{
-    //   this.user = user;
-    // })
-    this.myData ={
-      viewerId:this.user._id,
-      _id:this.user._id,
-      name:this.user.name,
-      posts:this.user.posts
-    }
-    this._userService.getSearchProfile(this.myData);
+  async getProfile(){
+    (await this._httpService.getProfile(this.user._id,'profile'))
+   .subscribe(profileData =>{
+    this._userService.getProfile(profileData);
+   })
+    
     this.router.navigate( ['/home/profile',this.user._id]);
   }
 

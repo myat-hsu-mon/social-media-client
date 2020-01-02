@@ -11,7 +11,7 @@ export class UserServiceService {
   userData = new BehaviorSubject<{}>({});
   postedData = new BehaviorSubject<any>({} as String);
   friendRequestData = new BehaviorSubject<any>({} as String);
-  searchProfileData = new BehaviorSubject<{}>({});
+  profileData = new BehaviorSubject<{}>({});
   friendData = new BehaviorSubject<{}>({});
   constructor() { }
   getSearchResult(search) {
@@ -28,8 +28,8 @@ export class UserServiceService {
     this.friendRequestArray.push(friendRequestName);
     this.friendRequestData.next(this.friendRequestArray);
   }
-  getSearchProfile(searchProfileData) {
-    this.searchProfileData.next(searchProfileData);
+  getProfile(profileData) {
+    this.profileData.next(profileData);
   }
   getFriend(friend) {
     this.friendData.next(friend);
