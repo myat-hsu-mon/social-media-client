@@ -8,7 +8,7 @@
    }
 
    .backgroundColor{
-       background-color:blue;       
+      color:blue;      
    }
 
    img{
@@ -26,8 +26,6 @@
  }
 
  mat-card{
-    border-bottom: 1px solid blue;
-    border-top: 1px solid blue;
     margin-bottom: 20px;
     border-radius: 10px;
  }

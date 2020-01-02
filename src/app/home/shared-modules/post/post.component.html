@@ -7,8 +7,9 @@
     <mat-card-content>{{post.body}}</mat-card-content>
     <mat-card-actions>
         <mat-divider></mat-divider>
-        <button mat-button (click)="like(post._id, post.authorId, user._id)" [ngClass]="{backgroundColor: post.isLike }" class="button">
-            Like
+        <button mat-icon-button (click)="like(post._id, post.authorId, post.isLike, viewerId)" [ngClass]="{backgroundColor: post.isLike }" class="button">
+            <mat-icon>thumb_up</mat-icon>
+            <span>Like</span>
         </button>
         <button mat-button class="button">
             <mat-icon>comment</mat-icon><span>Comment</span>

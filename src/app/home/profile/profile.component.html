@@ -12,13 +12,22 @@
             <mat-label>What is on your mind ?</mat-label>
             <input matInput formControlName="text">
         </mat-form-field>
-        <!-- <div>
+        <div>
             <button mat-stroked-button (click)="imagePicked.click()">Photo/Video</button>
             <input type="file" #imagePicked (change)="onImagePicked($event)" formControlName="image">
-        </div> -->
+        </div>
+        <div class="imagepreview-div">
+            <img [src]="imagePreview" [alt]="'HelloImagePreview'">
+        </div>
         
 <button id="post-button" mat-button color="primary" type="submit">Post</button>
     </form>
 
-<app-post *ngFor="let post of user.posts" [post]="post" [name]="user.name" ></app-post>
+<app-post 
+*ngFor="let post of user.posts" 
+[post]="post" 
+[name]="user.name" 
+[viewerId]="user.viewerId" 
+
+></app-post>
 <!-- <p *ngIf="user.posts.length == 0">No posts to show</p> -->

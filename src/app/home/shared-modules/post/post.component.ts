@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { UserServiceService } from 'src/app/services/user-service.service';
+
 import { SocketServiceService } from '../../socket-service.service';
 import { User } from 'src/app/models/user.model';
 
@@ -12,18 +12,13 @@ export class PostComponent implements OnInit {
   user:User;
 
 @Input() post:any;
-@Input() name:any;
+@Input() name:String;
+@Input() viewerId:String;
   constructor(
-    private _userService : UserServiceService,
     private _socketService : SocketServiceService) { }
 
   ngOnInit() {
-    this._userService.userData.subscribe((userData: User) =>{
-      this.user = userData;     
-    });
-
-    console.log("Current likes array:",this.post.likes);
-    if(this.post.likes.includes(this.user._id)){
+    if(this.post.likes.includes(this.viewerId)){
       this.post.isLike = true;
     }
    
@@ -31,13 +26,19 @@ export class PostComponent implements OnInit {
   }
 
 
-  like(postId, postAuthorId, likedUserId) {
+  like(postId, postAuthorId, isLike, likedUserId) {
     const likeData = {
       postAuthorId ,
       postId ,
       likedUserId 
     }
-    this._socketService.like(likeData);
+    
+    if(isLike){
+      this._socketService.dislike(likeData)
+    }else{
+      this._socketService.like(likeData);
+    }
+    
   }
 
 }

@@ -46,3 +46,11 @@ input[type="file"]{
     visibility: hidden;
 }
 
+.imagepreview-div{
+    height:200px;
+    margin : 1rem;
+}
+
+.imagepreview-div img{
+    height: 100%;
+}

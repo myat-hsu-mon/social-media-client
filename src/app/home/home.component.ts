@@ -128,6 +128,16 @@ export class HomeComponent implements OnInit {
       this.user.activeFriends = activeFriends;
       console.log('active friends:', this.user.activeFriends)
     })
+
+    this._socketService.liked().subscribe( (posts: any) =>{
+      posts.viewerId = this.user._id;
+      this._userService.getProfile(posts);
+    })
+    
+    this._socketService.disliked().subscribe( (posts: any)=>{
+      posts.viewerId = this.user._id;
+      this._userService.getProfile(posts)
+    })
     
     
   } // end on Oninit
@@ -179,12 +189,10 @@ export class HomeComponent implements OnInit {
   }
   async getProfile(){
     (await this._httpService.getProfile(this.user._id,'profile'))
-   .subscribe(profileData =>{//id name posts
-    this.profileData = profileData;
-    this.profileData.viewerId = this.user._id;
-    console.log("Profile Data :",this.profileData);
-    
-    this._userService.getProfile(this.profileData);
+   .subscribe((profileData : any) =>{
+     profileData.viewerId = this.user._id;
+     console.log('profile inside home:', profileData)
+    this._userService.getProfile(profileData);
    })
     
     this.router.navigate( ['/home/profile',this.user._id]);

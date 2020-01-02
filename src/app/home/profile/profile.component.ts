@@ -5,6 +5,7 @@ import { MessageBottomsheetComponent } from '../message-bottomsheet/message-bott
 import { SocketServiceService } from '../socket-service.service';
 import { MatBottomSheet } from '@angular/material';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { HttpServiceService } from 'src/app/http-service.service';
 
 @Component({
   selector: 'app-profile',
@@ -16,10 +17,13 @@ export class ProfileComponent implements OnInit {
   user;
   messageButtonVisible;
   form : FormGroup;
+  file : any;
+  imagePreview;
   constructor(
     private _userService: UserServiceService,
     private _bottomSheet: MatBottomSheet,
-    private _socketService: SocketServiceService
+    private _socketService: SocketServiceService,
+    private _httpService: HttpServiceService
   ) { }
 
   ngOnInit() {
@@ -43,9 +47,11 @@ export class ProfileComponent implements OnInit {
     // })
     
     this._userService.profileData.subscribe((profileData: User) => {
-      profileData.posts =  profileData.posts.reverse() ;
-      this.user = profileData ;
-      console.log("user:",this.user)
+      this.user = profileData;
+      this.user.posts = profileData.posts.reverse()
+      console.log("after reverse",this.user)
+      // profileData.posts =  profileData.posts.reverse();
+      //this.user = profileData;  
     })   
   }
 
@@ -98,17 +104,24 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  // onImagePicked(event : Event){
-  //   const file = (event.target as HTMLInputElement).files[0];
-  //   console.log("event.target:",file);
-  //   this.form.patchValue({image:file});
-  //   this.form.get('image').updateValueAndValidity();
-  //   console.log("this.form :",this.form);
-
-  // }
+  onImagePicked(event : Event){
+    this.file = (event.target as HTMLInputElement).files[0];
+    console.log("file selected:",this.file);
+    const reader =new FileReader();
+    reader.onload = ()=>{
+      this.imagePreview = reader.result;
+    }
+    reader.readAsDataURL(this.file)
+    
+  }
 
   onPost(formValue){
-    console.log("formValue:",formValue)
+    console.log("formValue:",formValue)//image:'fakepath/MyatHsuMon.jpg
+    const formData = new FormData();
+    formData.append('image',this.file, this.file.name);
+    formData.append('text',formValue.text);
+    
+    
   }
 
 }

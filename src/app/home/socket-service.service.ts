@@ -160,5 +160,23 @@ export class SocketServiceService {
   like(likeData){
     this.socket.emit('like', likeData);
   }
+  liked(){
+    return new Observable( observer =>{
+      this.socket.on('liked', posts => {
+        observer.next(posts);
+      })
+    })
+  }
+  
+  dislike(dislike){
+    this.socket.emit('dislike', dislike)
+  }
+  disliked(){
+    return new Observable( observer =>{
+      this.socket.on('disliked', (posts)=>{
+        observer.next(posts)
+      })
+    })
+  }
 
 }// end of class
