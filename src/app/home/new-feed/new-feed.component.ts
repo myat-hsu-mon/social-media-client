@@ -14,11 +14,9 @@ export class NewFeedComponent implements OnInit {
   constructor(private _userService:UserServiceService) { }
 
   ngOnInit() {
-    this._userService.searchProfileData.subscribe((data: User)=>{  
-    if(data != null){
-      this.posts.push(data.posts);
-      this.name = data.name;
-  }
+    this._userService.userData.subscribe(data =>{
+      this.posts.push(data);
+      console.log("posts:",this.posts);
     })
 
   }

@@ -12,13 +12,14 @@ mat-sidenav{
     width:40%;
 }
 .sidenav{
-    width:100%;
+    width:80%;
     margin:auto;
     background-color: lightgray;
     margin-bottom: 15px;
 }
 .sidenav:hover{
-    color:blue;
+    color:black;
+    background-color: lightblue;
 }
 .profilepicture{
     background-image: url('./search/pug1.jpg');
