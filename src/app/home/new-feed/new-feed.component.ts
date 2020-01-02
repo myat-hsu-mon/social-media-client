@@ -14,9 +14,8 @@ export class NewFeedComponent implements OnInit {
   constructor(private _userService:UserServiceService) { }
 
   ngOnInit() {
-    this._userService.userData.subscribe(data =>{
-      this.posts.push(data);
-      console.log("posts:",this.posts);
+    this._userService.userData.subscribe((data: User) =>{
+      this.posts.push(data.posts);
     })
 
   }

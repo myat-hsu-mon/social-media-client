@@ -28,23 +28,23 @@ export class ProfileComponent implements OnInit {
       image : new FormControl(null,{validators:Validators.required})
     })
 
-    this._userService.searchProfileData.subscribe((searchUser) => {
-      this.searchUser = searchUser;//viewerid,receiver => _id,name,posts,relationship
-      //if addfriend,cancelrequest, acceptrequest
-      if (this.searchUser.relationship == 'Add Friend') {
-        this.messageButtonVisible = true;
-      } else if (this.searchUser.relationship == 'Cancel Request') {
-        this.messageButtonVisible = true;
-      } else if (this.searchUser.relationship == 'Accept Request') {
-        this.messageButtonVisible = true;
-      } else {
-        this.messageButtonVisible = false;
-      }
-    })
-
-    this._userService.userData.subscribe((user: User) => {
-      this.user = user;
-    })
+    // this._userService.profileData.subscribe((searchUser) => {
+    //   this.searchUser = searchUser;//viewerid,receiver => _id,name,posts,relationship
+    //   //if addfriend,cancelrequest, acceptrequest
+    //   if (this.searchUser.relationship == 'Add Friend') {
+    //     this.messageButtonVisible = true;
+    //   } else if (this.searchUser.relationship == 'Cancel Request') {
+    //     this.messageButtonVisible = true;
+    //   } else if (this.searchUser.relationship == 'Accept Request') {
+    //     this.messageButtonVisible = true;
+    //   } else {
+    //     this.messageButtonVisible = false;
+    //   }
+    // })
+    
+    this._userService.profileData.subscribe((profileData: User) => {
+      this.user = profileData;
+    })   
   }
 
   makeFriendRelation() {
