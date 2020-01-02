@@ -68,12 +68,8 @@ export class SearchComponent implements OnInit {
   }
 
   async wall(searchId, relationship) {
-    (await this._httpService.getSearchUser(searchId, 'profile'))
-      .subscribe((searchUser : User) => {
-        // this.searchUser = searchUser;//_id,name,posts
-        // this.searchUser.viewerId = this.user._id;
-        // this.searchUser.relationship = relationship;
-        console.log("search :",searchUser);
+    (await this._httpService.getProfile(searchId, 'profile'))
+      .subscribe((searchUser : User) => {        
         const searchData = {
           viewerId : this.user._id,
           relationship : relationship,
@@ -81,10 +77,9 @@ export class SearchComponent implements OnInit {
           name: searchUser.name ,
           posts : searchUser.posts
         }
-        console.log("Search Data with viewer Id in search:", searchData);
         this._userService.getProfile(searchData);
       });
-    this.router.navigate(['/home/profile', searchId]);
+    this.router.navigate(['home/profile', searchId]);
   }
 
 
