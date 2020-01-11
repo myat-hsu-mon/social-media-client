@@ -7,7 +7,8 @@
     <mat-card-content>{{post.body}}</mat-card-content>
     <mat-card-actions>
         <mat-divider></mat-divider>
-        <button mat-icon-button (click)="like(post._id, post.authorId, post.isLike, viewerId)" [ngClass]="{backgroundColor: post.isLike }" class="button">
+        <button mat-icon-button (click)="like(post._id, post.authorId, post.isLike, viewerId)"
+            [ngClass]="{backgroundColor: post.isLike }" class="button">
             <mat-icon>thumb_up</mat-icon>
             <span>Like</span>
         </button>
@@ -16,38 +17,19 @@
         </button>
         <mat-divider></mat-divider>
     </mat-card-actions>
-        <input  matInput placeholder="Write a comment"  #comment> 
-        <!-- <button (click)="send(comment.value)" >send</button> -->
+    <div>
+        <input matInput placeholder="Write a comment" #comment>
+        <button (click)="sendComment(comment.value, post._id, post.authorId)" mat-icon-button>
+            <mat-icon>label_important</mat-icon>
+        </button>
+    </div>
 
-        <div *ngFor="let comment of commentArray" >         
-            <img src="./cat.jpg" alt="pug" >  
-                   <span id="comment">
-                    {{comment}}
-                   </span>                
+
+    <div *ngFor="let comment of comments">
+        <div>
+            <img src="./cat.jpg" alt="pug">
+            {{viewerName}}
         </div>
+        <p> {{comment.body}}</p>
+    </div>
 </mat-card>
-<!-- 
-<mat-card>
-    <mat-card-header>
-        <div mat-card-avatar class="avatar"></div>
-        <mat-card-title>
-            <input type="text" matInput placeholder="Write a comment" ngModel name="comment" #comment>
-            <button (click)="send(comment.value)">send</button>
-        </mat-card-title>
-    </mat-card-header>
-</mat-card>
-<div *ngFor="let comment of commentArray"  >         
-    <img src="./cat.jpg" alt="pug" >  
-           <span id="comment">
-            {{comment}}
-           </span>
-        
-</div> -->
-
-<!-- <mat-card *ngFor="let comment of commentArray">
-    <mat-card-header>
-        <div mat-card-avatar class="avatar"></div>
-        <mat-card-title>{{comment}}</mat-card-title>
-    </mat-card-header>   
-    
-</mat-card> -->

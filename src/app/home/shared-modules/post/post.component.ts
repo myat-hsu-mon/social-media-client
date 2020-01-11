@@ -14,6 +14,8 @@ export class PostComponent implements OnInit {
 @Input() post:any;
 @Input() name:String;
 @Input() viewerId:String;
+@Input() viewerName:String;
+@Input() comments:any;
   constructor(
     private _socketService : SocketServiceService) { }
 
@@ -21,8 +23,6 @@ export class PostComponent implements OnInit {
     if(this.post.likes.includes(this.viewerId)){
       this.post.isLike = true;
     }
-   
-    
   }
 
 
@@ -39,6 +39,17 @@ export class PostComponent implements OnInit {
       this._socketService.like(likeData);
     }
     
+  }
+
+  sendComment(body, postId, postAuthorId){
+    const commentData ={
+      authorId : this.viewerId,
+      authorName : this.viewerName,
+      body,
+      postAuthorId,
+      postId,
+    }
+    this._socketService.sendComment(commentData);
   }
 
 }

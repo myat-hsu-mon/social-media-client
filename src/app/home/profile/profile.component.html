@@ -1,33 +1,35 @@
-<div id="coverphoto-div"> Cover Photo </div>
-<div id = "message-div"  > 
+<div id="coverphoto-div">
+    <button>Add cover photo</button>
+    <div id="profilepicture-div">
+        <button>Add profile Picture</button>
+    </div>
+</div>
+<div id="message-div">
     <span>{{user.name}}</span>
-    <!-- <span *ngIf="searchUser.viewerId != searchUser._id">
-        <button mat-button color="primary" class="relation-button" (click)="makeFriendRelation()">{{searchUser.relationship}}</button>
-        <button mat-button color="primary" class="message-button" [disabled]="messageButtonVisible" (click)="sendMessage()">Send Message</button>
-    </span>    -->
+    <span *ngIf="user.viewerId != user._id">
+        <button mat-button color="primary" class="relation-button"
+            (click)="makeFriendRelation()">{{user.relationship}}</button>
+        <button mat-button color="primary" class="message-button" [disabled]="messageButtonVisible"
+            (click)="sendMessage()">Send Message</button>
+    </span>
 </div>
 <div id="form-div">
-    <form  [formGroup]="form" (ngSubmit)="onPost(form.value)">
-        <mat-form-field appearance="outline" >
+    <form [formGroup]="form" (ngSubmit)="onPost(form.value)">
+        <mat-form-field appearance="outline">
             <mat-label>What is on your mind ?</mat-label>
             <input matInput formControlName="text">
         </mat-form-field>
         <div>
             <button mat-stroked-button (click)="imagePicked.click()">Photo/Video</button>
-            <input type="file" #imagePicked (change)="onImagePicked($event)" formControlName="image">
+            <input style="display:none" type="file" #imagePicked (change)="onImagePicked($event)" formControlName="image">
         </div>
-        <div class="imagepreview-div">
+        <div class="imagepreview-div" *ngIf="isImagePreview">
             <img [src]="imagePreview" [alt]="'HelloImagePreview'">
         </div>
-        
-<button id="post-button" mat-button color="primary" type="submit">Post</button>
+
+        <button id="post-button" mat-button color="primary" type="submit">Post</button>
     </form>
 
-<app-post 
-*ngFor="let post of user.posts" 
-[post]="post" 
-[name]="user.name" 
-[viewerId]="user.viewerId" 
-
-></app-post>
-<!-- <p *ngIf="user.posts.length == 0">No posts to show</p> -->
+    <app-post *ngFor="let post of user.posts" [post]="post" [name]="user.name" [viewerId]="user.viewerId"
+        [viewerName]="user.viewerName" [comments]="post.comments"></app-post>
+    <!-- <p *ngIf="user.posts.length == 0">No posts to show</p> -->

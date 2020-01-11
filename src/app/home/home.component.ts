@@ -138,6 +138,12 @@ export class HomeComponent implements OnInit {
       posts.viewerId = this.user._id;
       this._userService.getProfile(posts)
     })
+
+    this._socketService.commented().subscribe( (comments: any)=>{
+      console.log("Comments ",comments)
+      //comments.viewerId = this.user._id;
+      this._userService.getProfile(comments)
+    })
     
     
   } // end on Oninit
@@ -191,7 +197,7 @@ export class HomeComponent implements OnInit {
     (await this._httpService.getProfile(this.user._id,'profile'))
    .subscribe((profileData : any) =>{
      profileData.viewerId = this.user._id;
-     console.log('profile inside home:', profileData)
+     profileData.viewerName = this.user.name;
     this._userService.getProfile(profileData);
    })
     

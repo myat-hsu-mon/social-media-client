@@ -179,4 +179,16 @@ export class SocketServiceService {
     })
   }
 
+  sendComment(commentData){
+    this.socket.emit('send comment',commentData);
+  }
+  commented(){
+    return new Observable( observer =>{
+      this.socket.on('commented', comments => {
+        console.log("Socket:comment",comments)
+        observer.next(comments);
+      })
+    })
+  }
+
 }// end of class

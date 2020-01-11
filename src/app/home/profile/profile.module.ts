@@ -20,6 +20,7 @@ const routes:Routes =[
   ],
   imports: [
     PostModule,
+    MaterialModule,
     RouterModule.forChild(routes),
     ReactiveFormsModule,
     HttpClientModule

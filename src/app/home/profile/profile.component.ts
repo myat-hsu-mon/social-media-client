@@ -19,6 +19,7 @@ export class ProfileComponent implements OnInit {
   form : FormGroup;
   file : any;
   imagePreview;
+  isImagePreview = false;
   constructor(
     private _userService: UserServiceService,
     private _bottomSheet: MatBottomSheet,
@@ -48,8 +49,7 @@ export class ProfileComponent implements OnInit {
     
     this._userService.profileData.subscribe((profileData: User) => {
       this.user = profileData;
-      this.user.posts = profileData.posts.reverse()
-      console.log("after reverse",this.user)
+      console.log("User in profile ts:",this.user);
       // profileData.posts =  profileData.posts.reverse();
       //this.user = profileData;  
     })   
@@ -85,8 +85,6 @@ export class ProfileComponent implements OnInit {
   }
 
   sendMessage() {
-    console.log("receiver id and name:", this.searchUser._id, this.searchUser.name)
-    console.log("viewerId:", this.searchUser.viewerId)
     let conversationData = {
       conversationId: this.searchUser._id,
       viewerId: this.searchUser.viewerId
@@ -105,6 +103,7 @@ export class ProfileComponent implements OnInit {
   }
 
   onImagePicked(event : Event){
+    this.isImagePreview = true;
     this.file = (event.target as HTMLInputElement).files[0];
     console.log("file selected:",this.file);
     const reader =new FileReader();

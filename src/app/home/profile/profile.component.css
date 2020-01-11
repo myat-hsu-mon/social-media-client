@@ -1,6 +1,13 @@
 #coverphoto-div{
     width : 100%;
     height : 300px;
+    border : 1px solid green;
+}
+
+#profilepicture-div{
+    width : 40%;
+    height: 150px;
+    border: 1px solid black;
 }
 
 #message-div{
@@ -9,6 +16,7 @@
     margin-bottom: 20px;
     border:1px solid blue;
     border-radius: 10px;
+    display:inline-block;
 }
 
 .relation-button{
@@ -42,9 +50,9 @@ mat-form-field{
     width:30%;
 }
 
-input[type="file"]{
+/* input[type="file"]{
     visibility: hidden;
-}
+} */
 
 .imagepreview-div{
     height:200px;
