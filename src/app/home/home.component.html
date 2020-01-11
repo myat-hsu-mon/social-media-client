@@ -15,7 +15,7 @@
             <mat-icon [matBadgeHidden]="!user.numberOfFriendSuggests > 0" [matBadge]="user.numberOfFriendSuggests"
                 matBadgeColor="accent">group</mat-icon>
         </button>
-        <div ngbDropdownMenu aria-labelledby="dropdownForm1" *ngIf="user.friendSuggestsForNoti.length">
+        <div ngbDropdownMenu aria-labelledby="dropdownForm1" *ngIf="isFriendSuggestsForNoti()">
 
             <mat-card *ngFor="let friendSuggest of user.friendSuggestsForNoti" fxLayout fxLayoutAlign="flex-end">
                 <div id="name">

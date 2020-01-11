@@ -34,7 +34,7 @@ export class PostComponent implements OnInit {
     }
     
     if(isLike){
-      this._socketService.dislike(likeData)
+      this._socketService.unlike(likeData)
     }else{
       this._socketService.like(likeData);
     }

@@ -60,7 +60,6 @@ export class HomeComponent implements OnInit {
     })
 
    // this._socketService.login(this.user._id, this.user.name)
-
     this._socketService.friendRequest(this.user._id).subscribe((receiver: User)=>{
       
         this.searchResult = this.searchResult.map(value =>{
@@ -72,6 +71,10 @@ export class HomeComponent implements OnInit {
           return value;
         })
     })
+
+
+
+
 
     this._socketService.canceledRequest(this.user._id).subscribe((receiver: User)=>{
       this.searchResult = this.searchResult.map(value =>{ 
@@ -107,18 +110,14 @@ export class HomeComponent implements OnInit {
     })
 
     this._socketService.receivedMessageConversation().subscribe((messageConversation) => {
-      console.log('message in home:', messageConversation)
       this.messageConversation = messageConversation;
       this._messageService.getMessage(messageConversation);
     })
+
     this._socketService.friendsWithIdAndName(this.user._id).subscribe((friends: User) => {
        this.user.friends = friends;
     })
 
-    this._socketService.createPostEmit(this.user._id).subscribe((userWithNewPost)=>{
-      console.log("user with new post:", userWithNewPost)
-      this._userService.getUserData(userWithNewPost);
-    })
 
     this._socketService.gotMessageList(this.user._id).subscribe((messageList)=>{
         this.messageList = messageList;
@@ -134,7 +133,8 @@ export class HomeComponent implements OnInit {
       this._userService.getProfile(posts);
     })
     
-    this._socketService.disliked().subscribe( (posts: any)=>{
+    this._socketService.unliked().subscribe( (posts: any)=>{
+      console.log("posts in home:",posts);
       posts.viewerId = this.user._id;
       this._userService.getProfile(posts)
     })
@@ -145,6 +145,12 @@ export class HomeComponent implements OnInit {
       this._userService.getProfile(comments)
     })
     
+    this._socketService.createdPost().subscribe( (posts:any)=>{
+      posts.viewerId = this.user._id;
+      console.log('post:', posts);
+      this._userService.getProfile(posts)
+      //this.router.navigate(["/profile"])
+    })
     
   } // end on Oninit
 
@@ -197,7 +203,6 @@ export class HomeComponent implements OnInit {
     (await this._httpService.getProfile(this.user._id,'profile'))
    .subscribe((profileData : any) =>{
      profileData.viewerId = this.user._id;
-     profileData.viewerName = this.user.name;
     this._userService.getProfile(profileData);
    })
     
@@ -232,7 +237,13 @@ export class HomeComponent implements OnInit {
   getMessageList(){
     this._socketService.getMessageList(this.user._id);
   }
-
+// user.friendSuggestsForNoti.length
+isFriendSuggestsForNoti(){
+ if(this.user.friendSuggestsForNoti.length){
+   return true;
+ }
+ else return false;
+}
 
 
  

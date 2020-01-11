@@ -61,19 +61,19 @@ export class SocketServiceService {
 
   }
   createPost(data){
-    this.socket.emit('create post',data);
+    this.socket.emit('createPost',data);
   }
-  createPostEmit(id) {
-    return new Observable((observer) => {
-      this.socket.on(id, (data) => {
-        observer.next(data);
-      })
 
+  createdPost(){
+    return new Observable((observer)=>{
+      this.socket.on('createdPost', (posts)=>{
+        observer.next(posts);
+      })
     })
   }
 
   friendRequest(id) {
-    console.log(id);
+    console.log("user id:", id);
     return new Observable((observer) => {
       this.socket.on(`${id}friendRequest`, (data) => {
         observer.next(data);
@@ -168,12 +168,12 @@ export class SocketServiceService {
     })
   }
   
-  dislike(dislike){
-    this.socket.emit('dislike', dislike)
+  unlike(unlikeData){
+    this.socket.emit('unlike', unlikeData)
   }
-  disliked(){
+  unliked(){
     return new Observable( observer =>{
-      this.socket.on('disliked', (posts)=>{
+      this.socket.on('unliked', (posts)=>{
         observer.next(posts)
       })
     })
