@@ -32,22 +32,23 @@ export class ProfileComponent implements OnInit {
       image : new FormControl(null,{validators:Validators.required})
     })
 
-    // this._userService.profileData.subscribe((searchUser) => {
-    //   this.searchUser = searchUser;//viewerid,receiver => _id,name,posts,relationship
-    //   //if addfriend,cancelrequest, acceptrequest
-    //   if (this.searchUser.relationship == 'Add Friend') {
-    //     this.messageButtonVisible = true;
-    //   } else if (this.searchUser.relationship == 'Cancel Request') {
-    //     this.messageButtonVisible = true;
-    //   } else if (this.searchUser.relationship == 'Accept Request') {
-    //     this.messageButtonVisible = true;
-    //   } else {
-    //     this.messageButtonVisible = false;
-    //   }
-    // })
+    this._userService.profileData.subscribe((searchUser) => {
+      this.searchUser = searchUser;//viewerid,receiver => _id,name,posts,relationship
+      //if addfriend,cancelrequest, acceptrequest
+      if (this.searchUser.relationship == 'Add Friend') {
+        this.messageButtonVisible = true;
+      } else if (this.searchUser.relationship == 'Cancel Request') {
+        this.messageButtonVisible = true;
+      } else if (this.searchUser.relationship == 'Accept Request') {
+        this.messageButtonVisible = true;
+      } else {
+        this.messageButtonVisible = false;
+      }
+    })
     
     this._userService.profileData.subscribe((profileData: User) => {
       this.user = profileData;
+      console.log("profileData:",profileData);
       this.user.posts = profileData.posts.reverse();
     })   
   }
@@ -82,8 +83,8 @@ export class ProfileComponent implements OnInit {
   }
 
   sendMessage() {
-    console.log("receiver id and name:", this.searchUser._id, this.searchUser.name)
-    console.log("viewerId:", this.searchUser.viewerId)
+    //console.log("receiver id and name:", this.searchUser._id, this.searchUser.name)
+    //console.log("viewerId:", this.searchUser.viewerId)
     let conversationData = {
       conversationId: this.searchUser._id,
       viewerId: this.searchUser.viewerId

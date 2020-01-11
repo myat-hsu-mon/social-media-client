@@ -21,9 +21,11 @@ export class LoginComponent implements OnInit {
  async login(loginData){    
   (await  this._httpService.login(loginData.value,'login'))
   .subscribe(data =>{
-    this._userService.getUserData(data);     
+    this._userService.setUserData(data);
+    this.router.navigate(['/home']);
+    console.log("data:", data)   
   });   
-  this.router.navigate(['/home']);
+  
   }
 
 }

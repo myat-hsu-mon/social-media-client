@@ -28,12 +28,6 @@ export class CreatePostComponent implements OnInit {
   }
   async createPost(postedValue){
      
-    // console.log("user id is in create post ,",this.user._id);    
-    // return (await this._service.createPost({postedValue,id:this.user._id},"post"))
-    // .subscribe(data =>{
-    //   this._userService.getPostedData(postedValue);
-      
-    // })
     const data = {
       postedValue,
       id:this.user._id,

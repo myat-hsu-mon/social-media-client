@@ -77,6 +77,8 @@ export class SearchComponent implements OnInit {
           name: searchUser.name ,
           posts : searchUser.posts
         }
+        console.log("search user:", searchUser);
+        console.log("search data:", searchData);
         this._userService.getProfile(searchData);
       });
     this.router.navigate(['home/profile', searchId]);

@@ -17,7 +17,7 @@ export class UserServiceService {
   getSearchResult(search) {
     this.searchResult.next(search);
   }
-  getUserData(user) {
+  setUserData(user) {
     this.userData.next(user);
   }
   getPostedData(data) {
